@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<languages>
+    <romanian>
+        <setLineTitle>SETEAZĂ PROPRIETĂȚILE LINIEI</setLineTitle>
+        <setColorTitle>Setează culoarea</setColorTitle>
+        <buttonColor>Alege culoarea</buttonColor>
+        <comboStyle1>discontinuă . . . . . . . .</comboStyle1>
+        <comboStyle2>continuă _________</comboStyle2>
+        <setLineStyleTitle>Setează stilul liniei</setLineStyleTitle>
+        <lineWidthTitle>Setează grosimea liniei</lineWidthTitle>
+        <drawCircleRadio>Deseneaza cerc</drawCircleRadio>
+        <drawPolygonRadio>Desenează poligon</drawPolygonRadio>
+        <drawTriangleRadio>Desenează triunghi</drawTriangleRadio>
+        <polygonTitle>Poligon regulat:</polygonTitle>
+        <nbOfVerticesTitle>Numărul de vârfuri</nbOfVerticesTitle>
+        <arcPropertyTitle>Proprietățile arcului</arcPropertyTitle>
+        <startAngleTitle>Unghi de început</startAngleTitle>
+        <endAngleTitle>Unghi de sfârșit</endAngleTitle>
+        <loadButton>Încarcă figură</loadButton>
+        <saveButton>Salvează figură</saveButton>
+        <resultTitle>Rezultate - cerc</resultTitle>
+        <lengthTitle>Lungime cerc</lengthTitle>
+        <circleAriaTitle>Aria cercului</circleAriaTitle>
+        <sectionTitle>Aria secțiunii</sectionTitle>
+        <arcLengthTitle>Lungimea arcului</arcLengthTitle>
+        <!--TRINGLE - CIRCLES-->
+        <circumscribed>Cercul circumscris</circumscribed>
+        <inscribed>Cercul înscris</inscribed>
+        <tucker>Cercul lui Tucker</tucker>
+        <lucas>Cercurile lui Lucas</lucas>
+        <orthocentroidal>Cercul ortocentroidal</orthocentroidal>
+        <neuberg>Cercurile lui Neuberg</neuberg>
+        <adams>Cercul lui Adams</adams>
+        <brocard>Cercul lui Brocard</brocard>
+        <!--For login-->
+        <loginTitle>PAGINĂ DE LOGARE/AUTENTIFICARE</loginTitle>
+        <usernameTitle>Cont utilizator</usernameTitle>
+        <password>Parolă</password>
+        <loginButton>Logare</loginButton>
+        <registerButton>Autentificare</registerButton>
+        <!--For quiz-->
+        <quizTitle1>Quizzzzzz... Ești pregătit? Acesta este formatul întrebărilor. Vor fi 10 întrebări cu grad de
+            dificultate tot mai ridicat. SUCCESS!
+        </quizTitle1>
+        <quizTitle2>Scor:</quizTitle2>
+        <quizTitle3>Scor final:</quizTitle3>
+        <questionTag>Întrebare</questionTag>
+        <startButton1>Începe</startButton1>
+        <startButton2>Continuă</startButton2>
+        <startButton3>Termină quiz</startButton3>
+        <reset>Resetare</reset>
+        <!--CHARTS-->
+        <chartPieTitle>Evoluția pe jocuri</chartPieTitle>
+        <barChartTitle>Rezultate medii jucători</barChartTitle>
+        <barChartLabel>Punctaje</barChartLabel>
+        <timeChartTitle>Evolutia în timp</timeChartTitle>
+    </romanian>
+
+
+    <english>
+        <setLineTitle>SET LINE PROPERTIES</setLineTitle>
+        <setColorTitle>Set color</setColorTitle>
+        <buttonColor>Choose color</buttonColor>
+        <comboStyle1>discontinue . . . . . . . .</comboStyle1>
+        <comboStyle2>continue _________</comboStyle2>
+        <setLineStyleTitle>Set line style</setLineStyleTitle>
+        <lineWidthTitle>Set line width</lineWidthTitle>
+        <drawCircleRadio>Draw circle</drawCircleRadio>
+        <drawPolygonRadio>Draw Regular Polygon</drawPolygonRadio>
+        <drawTriangleRadio>Draw triangle</drawTriangleRadio>
+        <polygonTitle>Regular polygon:</polygonTitle>
+        <nbOfVerticesTitle>Number of vertices</nbOfVerticesTitle>
+        <arcPropertyTitle>Arc properties</arcPropertyTitle>
+        <startAngleTitle>Start angle</startAngleTitle>
+        <endAngleTitle>End Angle</endAngleTitle>
+        <loadButton>Load figure</loadButton>
+        <saveButton>Save figure</saveButton>
+        <resultTitle>Results - circle</resultTitle>
+        <lengthTitle>Circle length</lengthTitle>
+        <circleAriaTitle>Circle aria</circleAriaTitle>
+        <sectionTitle>Section Aria</sectionTitle>
+        <arcLengthTitle>Arc length</arcLengthTitle>
+        <!--TRINGLE - CIRCLES-->
+        <circumscribed>Circumscribed circle</circumscribed>
+        <inscribed>Inscribed circle</inscribed>
+        <tucker>Tucker circle</tucker>
+        <lucas>Lucas circles</lucas>
+        <orthocentroidal>Orthocentroidal Circle</orthocentroidal>
+        <neuberg>Neuberg Circles</neuberg>
+        <adams>Adams Circle</adams>
+        <brocard>Brocard Circle</brocard>
+        <!--For login-->
+        <loginTitle>LOGIN / AUTHENTICATION PAGE</loginTitle>
+        <usernameTitle>Username</usernameTitle>
+        <password>Password</password>
+        <loginButton>Login</loginButton>
+        <registerButton>Register</registerButton>
+        <!--For quiz-->
+        <quizTitle1>Quizzzzzz ... Are you ready? This is the format of the questions. There will be 10 questions with
+            increasing difficulty. SUCCESS!
+        </quizTitle1>
+        <quizTitle2>Score:</quizTitle2>
+        <quizTitle3>Your final score:</quizTitle3>
+        <questionTag>Question</questionTag>
+        <startButton1>Start</startButton1>
+        <startButton2>Next</startButton2>
+        <startButton3>Finish quiz</startButton3>
+        <reset>Reset</reset>
+
+        <chartPieTitle>the evolution of games</chartPieTitle>
+        <barChartTitle>Average player results</barChartTitle>
+        <barChartLabel>SCORING</barChartLabel>
+        <timeChartTitle>Evolution over time</timeChartTitle>
+    </english>
+
+
+    <german>
+        <setLineTitle>Legen Sie die Linieneigenschaften fest</setLineTitle>
+        <setColorTitle>Farbe einstellen</setColorTitle>
+        <buttonColor>Wählen Sie die Farbe</buttonColor>
+        <comboStyle1>diskontinuierlich . . . . . . . .</comboStyle1>
+        <comboStyle2>durchgehende _________</comboStyle2>
+        <setLineStyleTitle>Linienstil festlegen</setLineStyleTitle>
+        <lineWidthTitle>Linienbreite einstellen</lineWidthTitle>
+        <drawCircleRadio>Kreis zeichnen</drawCircleRadio>
+        <drawPolygonRadio>Polygon zeichnen</drawPolygonRadio>
+        <drawTriangleRadio>Dreieck zeichnen</drawTriangleRadio>
+        <polygonTitle>Regelmäßiges Vieleck:</polygonTitle>
+        <nbOfVerticesTitle>Anzahl der Eckpunkte</nbOfVerticesTitle>
+        <arcPropertyTitle>Kreisbogen-Eigenschaften</arcPropertyTitle>
+        <startAngleTitle>Startwinkel</startAngleTitle>
+        <endAngleTitle>Endwinkel</endAngleTitle>
+        <loadButton>Figur laden</loadButton>
+        <saveButton>Figur speichern</saveButton>
+        <resultTitle>Ergebnisse - Kreis</resultTitle>
+        <lengthTitle>Kreislänge</lengthTitle>
+        <circleAriaTitle>Arie umkreisen</circleAriaTitle>
+        <sectionTitle>Abschnitt Arie</sectionTitle>
+        <arcLengthTitle>Bogenlänge</arcLengthTitle>
+        <!--TRINGLE - CIRCLES-->
+        <circumscribed>Umschriebener Kreis</circumscribed>
+        <inscribed>Eingeschriebener Kreis</inscribed>
+        <tucker>Tucker-Kreis</tucker>
+        <lucas>Lucas-Kreis</lucas>
+        <orthocentroidal>Orthozentroidaler Kreis</orthocentroidal>
+        <neuberg>Neuberger Kreise</neuberg>
+        <adams>Adams-Kreis</adams>
+        <brocard>Brocard-Kreis</brocard>
+        <!--For login-->
+        <loginTitle>ANMELDE-/AUTHENTIFIZIERUNGSSEITE</loginTitle>
+        <usernameTitle>Nutzername</usernameTitle>
+        <password>Passwort</password>
+        <loginButton>Anmeldung</loginButton>
+        <registerButton>Registrieren</registerButton>
+        <!--For quiz-->
+        <quizTitle1>Quizzzzzz ... Bist du bereit? Dies ist das Format der Fragen. Es werden 10 Fragen mit steigendem
+            Schwierigkeitsgrad gestellt. ERFOLG!
+        </quizTitle1>
+        <quizTitle2>Punktzahl:</quizTitle2>
+        <quizTitle3>Endstand:</quizTitle3>
+        <questionTag>Frage</questionTag>
+        <startButton1>Starten</startButton1>
+        <startButton2>Mach weiter</startButton2>
+        <startButton3>Quiz beenden</startButton3>
+        <reset>Zurücksetzen</reset>
+        <!--CHARTS-->
+        <chartPieTitle>Evolution bei Spielen</chartPieTitle>
+        <barChartTitle>Durchschnittliche Spielerergebnisse</barChartTitle>
+        <barChartLabel>WERFEN</barChartLabel>
+        <timeChartTitle>Entwicklung im Laufe der Zeit</timeChartTitle>
+
+    </german>
+
+</languages>
