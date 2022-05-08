@@ -10,6 +10,8 @@ import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
+import org.json.JSONObject;
+
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,23 +22,23 @@ public class QuizModel extends Subject {
 
     private Language language;
     private User user;
-    private Quiz quiz;
+    private JSONObject quizJSON;
     private boolean logged =false;
-    private boolean openQuiz=false;
     private Question currentQuestion=null;
     private Integer index=0;
     private List<QuizQuestion> quizQuestionList;
     private Color answerColor;
     private String state="pending";
 
+
     private DefaultPieDataset dataSetPieUserEvolution = new DefaultPieDataset();
     private DefaultCategoryDataset dataSetBarChart = new DefaultCategoryDataset();
     private TimeSeriesCollection timeSeriesCollection = new TimeSeriesCollection();
 
-    public QuizModel(Language language, User user, Quiz quiz) {
+    public QuizModel(Language language, User user, JSONObject quiz) {
         this.language = language;
         this.user = user;
-        this.quiz = quiz;
+        this.quizJSON = quiz;
         this.quizQuestionList = new ArrayList<>();
         this.answerColor = Color.GREEN;
     }
@@ -44,7 +46,7 @@ public class QuizModel extends Subject {
     public QuizModel() {
         this.language = new Language("romanian");
         this.user = null;
-        this.quiz = null;
+        this.quizJSON = new JSONObject();
         this.quizQuestionList = new ArrayList<>();
         this.answerColor = Color.GREEN;
     }
@@ -71,5 +73,6 @@ public class QuizModel extends Subject {
     public void addTimeSeries(TimeSeries series){
         timeSeriesCollection.addSeries(series);
     }
+
 
 }

@@ -11,6 +11,7 @@ import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.time.Day;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
+import org.json.JSONObject;
 import view.LoggedUserView;
 
 import javax.swing.*;
@@ -43,23 +44,24 @@ public class LoggedUserController {
     private class StartNextListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (!model.isOpenQuiz()) {
-                model.setOpenQuiz(true);
+            if (model.getState().equals("pending") || model.getState().equals("final_quiz")) {
                 model.setIndex(1);
                 model.setQuizQuestionList(new ArrayList<>());
-                model.setQuiz(Quiz.builder().user(model.getUser()).date(LocalDateTime.now()).score(0).build());
+                JSONObject quizJSON = new JSONObject();
+                quizJSON.put("user_id", model.getUser().getUserID());
+                quizJSON.put("date", LocalDateTime.now().toString());
+                quizJSON.put("score", 0);
+                model.setQuizJSON(quizJSON);
                 QuestionBll questionBll = new QuestionBll();
                 Question question = questionBll.findById(getRandomQuestion());
                 model.setCurrentQuestion(question);
-                model.addNewQuizQuestion(QuizQuestion.builder()
-                        .question(question)
-                        .quiz(model.getQuiz())
-                        .build());
+
                 model.notifyObserver("open_quiz");
                 model.setState("open_quiz");
             } else {
                 if (String.valueOf(model.getCurrentQuestion().getCorrectAnswer()).equals(loggedUserView.getSelectedAnswer())) {
-                    model.getQuiz().setScore(model.getQuiz().getScore() + 10);
+                    int newScore = (int)model.getQuizJSON().get("score") + 10;
+                    model.getQuizJSON().put("score", newScore);
                     model.setAnswerColor(Color.GREEN);
                 } else {
                     model.setAnswerColor(Color.RED);
@@ -67,7 +69,7 @@ public class LoggedUserController {
                 //reach the of the quiz or not
                 if (model.getIndex() == 10) {
                     saveResultsQuiz();
-                    model.setOpenQuiz(false);
+                    model.setState("final_quiz");
                     model.notifyObserver("final_quiz");
                     model.setState("final_quiz");
                 } else {
@@ -88,21 +90,20 @@ public class LoggedUserController {
 
         private void saveResultsQuiz() {
             //save quiz information
-            QuizBll quizBll = new QuizBll();
-            quizBll.saveQuiz(model.getQuiz());
+            System.out.println(model.getQuizJSON());
             //save the specific questions to this quiz
             QuizQuestionBll questionBll = new QuizQuestionBll();
-            for (QuizQuestion question : model.getQuizQuestionList()) {
+            /*for (QuizQuestion question : model.getQuizQuestionList()) {
                 question.setQuiz(model.getQuiz());
                 questionBll.saveQuizQuestion(question);
-            }
+            }*/
         }
     }
 
     private class ResetListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            model.setOpenQuiz(false);
+            //model.setOpenQuiz(false);
             model.notifyObserver("reset");
         }
     }

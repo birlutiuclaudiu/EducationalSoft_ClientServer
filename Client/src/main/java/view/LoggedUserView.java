@@ -8,6 +8,7 @@ import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
+import org.json.JSONObject;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -140,12 +141,12 @@ public class LoggedUserView extends JFrame implements Observer {
                 setQuestionAndAnswers();
                 //change text from start button in next
                 quizTitle.setForeground(quizModel.getAnswerColor());
-                quizTitle.setText(dictionary.get("quizTitle2") + quizModel.getQuiz().getScore());
+                quizTitle.setText(dictionary.get("quizTitle2") + quizModel.getQuizJSON().get("score"));
                 break;
             case "final_quiz":
                 //change text from next button in start
                 startButton.setText(dictionary.get("startButton1"));
-                quizTitle.setText(dictionary.get("quizTitle3") + quizModel.getQuiz().getScore());
+                quizTitle.setText(dictionary.get("quizTitle3") + quizModel.getQuizJSON().get("score"));
                 initQuizPage();
                 break;
             case "reset":
@@ -262,7 +263,7 @@ public class LoggedUserView extends JFrame implements Observer {
     private void changeLanguage() {
         dictionary = quizModel.getLanguage().getLanguageLabels();
         resetButton.setText(dictionary.get("reset"));
-        if (!quizModel.isOpenQuiz()) {
+        if (!quizModel.getState().equals("open_quiz")) {
             quizTitle.setText(dictionary.get("quizTitle1"));
             questionTag.setText(dictionary.get("questionTag"));
             startButton.setText(dictionary.get("startButton1"));
@@ -276,9 +277,9 @@ public class LoggedUserView extends JFrame implements Observer {
         @Override
         public void windowClosing(java.awt.event.WindowEvent windowEvent) {
             quizModel.setLogged(false);
-            quizModel.setQuiz(null);
+            quizModel.setQuizJSON(new JSONObject());
             quizModel.setUser(null);
-            quizModel.setOpenQuiz(false);
+            quizModel.setState("pending");
         }
     }
 }
