@@ -71,10 +71,10 @@ public class EduClient {
         return new JSONObject(bufferedReader.readLine()).get("BAD_REQUEST")=="true";
     }
 
-    public JSONObject getRequestLogin(String username, String password ) throws IOException {
+    public JSONObject getRequestLogin(String username, String password, String subtype) throws IOException {
         JSONObject configuration= new JSONObject();
         configuration.put("TYPE", "LOGIN");
-        configuration.put("SUBTYPE", "LOGIN");
+        configuration.put("SUBTYPE", subtype);
         configuration.put("USERNAME", username);
         configuration.put("PASSWORD", password);
         printStream.println(configuration);

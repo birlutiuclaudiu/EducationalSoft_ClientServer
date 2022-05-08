@@ -3,7 +3,6 @@ package model;
 import lombok.Getter;
 import lombok.Setter;
 import model.entities.QuizQuestion;
-import model.entities.User;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.time.TimeSeries;
@@ -19,25 +18,23 @@ import java.util.List;
 public class QuizModel extends Subject {
 
     private Language language;
-    private User user;
-    private JSONObject userJson;
+    private JSONObject user;
     private JSONObject quiz;
-    private boolean logged =false;
-    private JSONObject currentQuestion=null;
-    private Integer index=0;
+    private boolean logged = false;
+    private JSONObject currentQuestion = null;
+    private Integer index = 0;
     private List<QuizQuestion> quizQuestionList;
     private Color answerColor;
-    private String state="pending";
+    private String state = "pending";
 
 
     private DefaultPieDataset dataSetPieUserEvolution = new DefaultPieDataset();
     private DefaultCategoryDataset dataSetBarChart = new DefaultCategoryDataset();
     private TimeSeriesCollection timeSeriesCollection = new TimeSeriesCollection();
 
-    public QuizModel(Language language, User user, JSONObject quiz) {
+    public QuizModel(Language language, JSONObject user, JSONObject quiz) {
         this.language = language;
         this.user = user;
-        this.userJson = new JSONObject();
         this.quiz = quiz;
         this.quizQuestionList = new ArrayList<>();
         this.answerColor = Color.GREEN;
@@ -46,14 +43,13 @@ public class QuizModel extends Subject {
     public QuizModel() {
         this.language = new Language("romanian");
         this.user = null;
-        this.userJson = null;
         this.quiz = new JSONObject();
         this.quizQuestionList = new ArrayList<>();
         this.answerColor = Color.GREEN;
         this.setState("non_logged");
     }
 
-    public void addNewQuizQuestion(QuizQuestion question){
+    public void addNewQuizQuestion(QuizQuestion question) {
         this.quizQuestionList.add(question);
     }
 
@@ -64,15 +60,15 @@ public class QuizModel extends Subject {
         }
     }
 
-    public void addDataSetPieUserEvolution(String quizResult, long number){
+    public void addDataSetPieUserEvolution(String quizResult, long number) {
         this.dataSetPieUserEvolution.setValue("Points: " + quizResult, number);
     }
 
-    public void addDataBarUsersScore(String username, float number){
+    public void addDataBarUsersScore(String username, float number) {
         this.dataSetBarChart.setValue(number, "AverageScore", username);
     }
 
-    public void addTimeSeries(TimeSeries series){
+    public void addTimeSeries(TimeSeries series) {
         timeSeriesCollection.addSeries(series);
     }
 

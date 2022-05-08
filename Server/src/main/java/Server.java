@@ -2,16 +2,16 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import dto.QuestionDTO;
+import dto.UserDTO;
 import dto.mapper.QuestionMapper;
+import dto.mapper.UserMapper;
 import org.json.JSONObject;
 import persistence.businesslogic.QuestionBll;
 import java.time.LocalDateTime;
-
 import persistence.businesslogic.QuizBll;
 import persistence.businesslogic.UserBll;
 import persistence.entities.Quiz;
 import persistence.entities.User;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -117,16 +117,37 @@ public class Server {
 
     private void processLOGIN(JSONObject jsonObject){
         ObjectWriter ow = new ObjectMapper().writer();
-
-        switch (jsonObject.get("SUBTYPE").toString()){
+        User user= null;
+        UserDTO userDTO = null;
+        JSONObject badRequest = new JSONObject();
+        switch (jsonObject.get("SUBTYPE").toString()) {
             case "LOGIN" -> {
-                postSaveQuiz(jsonObject.get("OBJECT").toString());
+                user = new UserBll().exists(jsonObject.get("USERNAME").toString(), jsonObject.get("PASSWORD").toString());
+                if (user != null)
+                    userDTO = UserMapper.toDTO(user);
+                else
+                    badRequest.put("MESSAGE", "Invalid credentials");
             }
-            case "REGISTER" -> ow.withDefaultPrettyPrinter();
+            case "REGISTER" -> {
+                try {
+                    user = new UserBll().createNewUser(jsonObject.get("USERNAME").toString(),
+                            jsonObject.get("PASSWORD").toString());
+                } catch (Exception e) {
+                    badRequest.put("MESSAGE", e.getMessage());
+                }
+            }
         }
-        JSONObject sendingString = new JSONObject();
-        sendingString.put("BAD_REQUEST", false);
-        System.out.println(sendingString);
+        String sendingString="";
+        if(user!=null){
+            userDTO = UserMapper.toDTO(user);
+            try {
+                sendingString = ow.writeValueAsString(userDTO);
+            } catch (JsonProcessingException e) {
+                throw new RuntimeException(e);
+            }
+        }else {
+            sendingString = badRequest.toString();
+        }
         printStream.println(sendingString);
         printStream.flush();
     }

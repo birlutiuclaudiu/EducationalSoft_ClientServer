@@ -32,42 +32,50 @@ public class LoginController {
             UserBll userBll = new UserBll();
             String username = loginView.getUserName();
             String password = loginView.getPassword();
-            User user = userBll.exists(username, password);
+            JSONObject toLogUser=null;
+
             try {
-                JSONObject toLogUser = EduClient.getInstance().getRequestLogin(username, password);
-                System.out.println("DAAAA"+toLogUser);
-                if (user == null) throw new IOException();
-            } catch (IOException ex) {
-                JOptionPane.showMessageDialog(null, "Invalid credentials");
-                return;
+                toLogUser = EduClient.getInstance().getRequestLogin(username, password, "LOGIN");
+                toLogUser.get("username");
+                quizModel.setUser(toLogUser);
+                quizModel.setLogged(true);
+                quizModel.notifyObserver("login");
+                quizModel.setState("pending");
+                loggedUserView = new LoggedUserView(toLogUser.get("username").toString(), quizModel);
+                loggedUserController = new LoggedUserController(quizModel, loggedUserView);
+                loggedUserView.setVisible(true);
+
+            } catch (Exception r) {
+                if(toLogUser==null)
+                    JOptionPane.showMessageDialog(null, r.getMessage());
+                else
+                    JOptionPane.showMessageDialog(null, toLogUser.get("MESSAGE"));
             }
-            quizModel.setUser(user);
-            quizModel.setLogged(true);
-            quizModel.notifyObserver("login");
-            quizModel.setState("pending");
-            loggedUserView = new LoggedUserView(user.getUsername(), quizModel);
-            loggedUserController = new LoggedUserController(quizModel, loggedUserView);
-            loggedUserView.setVisible(true);
         }
     }
 
     private class RegisterListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            //create bll to access the entity oprations
-            UserBll userBll = new UserBll();
+            //create bll to access the entity operations
             String username = loginView.getUserName();
             String password = loginView.getPassword();
+            JSONObject toLogUser = null;
             try {
-                User user = userBll.createNewUser(username, password);
-                quizModel.setUser(user);
+                toLogUser = EduClient.getInstance().getRequestLogin(username, password, "REGISTER");
+                System.out.println("Register"+toLogUser);
+                toLogUser.get("username");
+                quizModel.setUser(toLogUser);
                 quizModel.notifyObserver("register");
                 quizModel.setLogged(true);
                 loggedUserView = new LoggedUserView(username, quizModel);
                 loggedUserController = new LoggedUserController(quizModel, loggedUserView);
                 loggedUserView.setVisible(true);
-            } catch (IllegalArgumentException argumentException) {
-                JOptionPane.showMessageDialog(null, argumentException.getMessage());
+            } catch (Exception r) {
+                if(toLogUser==null)
+                    JOptionPane.showMessageDialog(null, r.getMessage());
+                else
+                    JOptionPane.showMessageDialog(null, toLogUser.get("MESSAGE"));
             }
         }
     }

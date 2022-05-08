@@ -1,6 +1,5 @@
 package controller;
 
-
 import database.businesslogic.QuizBll;
 import model.QuizModel;
 import model.entities.Quiz;
@@ -46,7 +45,7 @@ public class LoggedUserController {
                 model.setQuizQuestionList(new ArrayList<>());
                 //initializare quiz
                 JSONObject quizJSON = new JSONObject();
-                quizJSON.put("user_id", model.getUser().getUserID());
+                quizJSON.put("user_id", model.getUser().get("id"));
                 quizJSON.put("date", LocalDateTime.now().toString());
                 quizJSON.put("score", 0);
                 model.setQuiz(quizJSON);
@@ -125,7 +124,7 @@ public class LoggedUserController {
 
         private void setPieAndTimeDataset() {
             QuizBll quizBll = new QuizBll();
-            List<Quiz> quizList = quizBll.getAllQuizzesByUser(model.getUser());
+            List<Quiz> quizList = new ArrayList<>();//quizBll.getAllQuizzesByUser(model.getUser());
             Map<Integer, Long> countResults = quizList.stream()
                     .map(Quiz::getScore)
                     .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
@@ -158,12 +157,11 @@ public class LoggedUserController {
             }
             int i = 0;
             for (var entry : averageMap.entrySet()) {
-                if (entry.getKey().equals(model.getUser().getUsername()))
+                if (entry.getKey().equals(model.getUser().get("username")))
                     model.addDataBarUsersScore(entry.getKey(), entry.getValue());
                 else
                     model.addDataBarUsersScore("User" + (++i), entry.getValue());
             }
-
         }
     }
 }
