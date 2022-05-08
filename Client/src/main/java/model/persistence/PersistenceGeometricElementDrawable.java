@@ -1,7 +1,6 @@
 package model.persistence;
 
-import com.fasterxml.jackson.dataformat.xml.XmlMapper;
-import model.Drawing;
+import model.geometryutils.Drawing;
 
 import javax.swing.*;
 import java.beans.XMLDecoder;

@@ -32,6 +32,7 @@ public class Server {
     private ServerSocket serverSocket;
     private PrintStream printStream;
     private BufferedReader bufferedReader;
+    private ObjectWriter objectWriter;
 
     public Server(String ipAddress, int port) throws IOException {
         serverSocket = new ServerSocket();
@@ -47,16 +48,14 @@ public class Server {
 
         // to read data coming from the client
         this.bufferedReader = new BufferedReader(new InputStreamReader(s.getInputStream()));
-
+        this.objectWriter = new ObjectMapper().writer();
         // server executes continuously
         while (true) {
-
             String request;
-
             // read from client
             while ((request = bufferedReader.readLine()) != null) {
                 JSONObject jsonObject = new JSONObject(request);
-                System.out.println(jsonObject);
+                System.out.println("HEADER REQUEST" + jsonObject.toString(1));
                 switch (jsonObject.get("TYPE").toString()) {
                     case "GET" -> processGET(jsonObject);
                     case "POST" -> processPOST(jsonObject);
@@ -76,39 +75,31 @@ public class Server {
 
     private void processGET(JSONObject jsonObject) throws JsonProcessingException {
         String sendingString = "";
-        ObjectWriter ow = new ObjectMapper().writer();
         QuestionDTO questionDTO;
         switch (jsonObject.get("ENTITY").toString()) {
             case "question" -> {
+                System.out.println("Sending to client the question with id: "+jsonObject.get("ID"));
                 questionDTO = QuestionMapper.toDTO(new QuestionBll().findById((int) jsonObject.get("ID")));
-                sendingString = ow.writeValueAsString(questionDTO);
+                sendingString =  this.objectWriter.writeValueAsString(questionDTO);
             }
-            case "user" -> sendingString = "";
         }
-
         // send to client
-        System.out.println(sendingString);
         printStream.println(sendingString);
         printStream.flush();
     }
 
     private void processPOST(JSONObject jsonObject) throws JsonProcessingException {
 
-        ObjectWriter ow = new ObjectMapper().writer();
-        QuestionDTO questionDTO;
-
         switch (jsonObject.get("ENTITY").toString()) {
             case "quiz" -> {
                 postSaveQuiz(jsonObject.get("OBJECT").toString());
             }
-            case "user" -> questionDTO = null;
         }
         JSONObject sendingString = new JSONObject();
         sendingString.put("BAD_REQUEST", false);
         System.out.println(sendingString);
         printStream.println(sendingString);
         printStream.flush();
-
     }
 
     private void postSaveQuiz(String objectFields) {
@@ -120,11 +111,10 @@ public class Server {
                 .user(user)
                 .build();
         new QuizBll().saveQuiz(quiz);
-        System.out.println("Quiz saved");
+        System.out.println("Quiz saved: " + jsonObject.toString(1));
     }
 
     private void processLOGIN(JSONObject jsonObject) {
-        ObjectWriter ow = new ObjectMapper().writer();
         User user = null;
         UserDTO userDTO = null;
         JSONObject badRequest = new JSONObject();
@@ -149,7 +139,7 @@ public class Server {
         if (user != null) {
             userDTO = UserMapper.toDTO(user);
             try {
-                sendingString = ow.writeValueAsString(userDTO);
+                sendingString = this.objectWriter.writeValueAsString(userDTO);
             } catch (JsonProcessingException e) {
                 throw new RuntimeException(e);
             }

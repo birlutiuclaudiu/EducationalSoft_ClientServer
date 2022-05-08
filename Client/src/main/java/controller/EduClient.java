@@ -82,5 +82,17 @@ public class EduClient {
         printStream.flush();
         return new JSONObject(bufferedReader.readLine());
     }
+
+    public void close(){
+        try {
+            if(this.socket!=null) {
+                this.socket.close();
+                single_instance = null;
+            }
+            this.socket=null;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
 

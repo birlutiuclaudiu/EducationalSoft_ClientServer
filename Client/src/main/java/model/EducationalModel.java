@@ -3,6 +3,7 @@ package model;
 
 import lombok.Getter;
 import lombok.Setter;
+import model.geometryutils.Drawing;
 
 @Getter
 @Setter

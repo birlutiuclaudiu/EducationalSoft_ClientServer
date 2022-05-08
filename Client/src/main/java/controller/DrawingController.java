@@ -1,5 +1,5 @@
 package controller;
-import model.Drawing;
+import model.geometryutils.Drawing;
 import model.EducationalModel;
 import model.QuizModel;
 import model.geometryutils.OperationCircleProperties;
