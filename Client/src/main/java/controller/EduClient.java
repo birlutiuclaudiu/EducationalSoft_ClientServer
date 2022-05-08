@@ -5,7 +5,10 @@ import lombok.Setter;
 import org.hibernate.HibernateException;
 import org.json.JSONObject;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintStream;
 import java.net.Socket;
 
 
@@ -14,7 +17,6 @@ import java.net.Socket;
 public class EduClient {
     private static EduClient single_instance = null;
     private Socket socket;
-
     private BufferedReader bufferedReader;
     private PrintStream printStream;
 
@@ -39,17 +41,6 @@ public class EduClient {
         this.bufferedReader = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
     }
 
-    public void sendRequest(String request) throws IOException {
-        // send to the server
-       // dataOutputStream.writeBytes(request + "\n");
-       // dataOutputStream.flush();
-        // receive from the server
-        JSONObject jsonObject = new JSONObject(bufferedReader.readLine());
-        System.out.println(jsonObject.get("s2"));
-        System.out.println(jsonObject.get("s3"));
-        System.out.println(jsonObject.get("a"));
-    }
-
     public JSONObject getRequestById(String objectClass, int id) throws IOException {
         JSONObject configuration = new JSONObject();
         configuration.put("TYPE", "GET");
@@ -68,11 +59,11 @@ public class EduClient {
 
         printStream.println(configuration);
         printStream.flush();
-        return new JSONObject(bufferedReader.readLine()).get("BAD_REQUEST")=="true";
+        return new JSONObject(bufferedReader.readLine()).get("BAD_REQUEST") == "true";
     }
 
     public JSONObject getRequestLogin(String username, String password, String subtype) throws IOException {
-        JSONObject configuration= new JSONObject();
+        JSONObject configuration = new JSONObject();
         configuration.put("TYPE", "LOGIN");
         configuration.put("SUBTYPE", subtype);
         configuration.put("USERNAME", username);
@@ -80,7 +71,16 @@ public class EduClient {
         printStream.println(configuration);
         printStream.flush();
         return new JSONObject(bufferedReader.readLine());
+    }
 
+    public JSONObject getRequestCharts(String typeChart, int user_id) throws IOException {
+        JSONObject configuration = new JSONObject();
+        configuration.put("TYPE", "CHART");
+        configuration.put("SUBTYPE", typeChart);
+        configuration.put("USER_ID", user_id);
+        printStream.println(configuration);
+        printStream.flush();
+        return new JSONObject(bufferedReader.readLine());
     }
 }
 

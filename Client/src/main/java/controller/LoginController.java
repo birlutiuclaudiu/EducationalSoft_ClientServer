@@ -1,8 +1,5 @@
 package controller;
-
-import database.businesslogic.UserBll;
 import model.QuizModel;
-import model.entities.User;
 import org.json.JSONObject;
 import view.LoggedUserView;
 import view.LoginView;
@@ -29,7 +26,6 @@ public class LoginController {
     private class LoginListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            UserBll userBll = new UserBll();
             String username = loginView.getUserName();
             String password = loginView.getPassword();
             JSONObject toLogUser=null;

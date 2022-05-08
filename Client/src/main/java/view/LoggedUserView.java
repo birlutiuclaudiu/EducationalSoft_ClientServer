@@ -2,7 +2,6 @@ package view;
 
 import model.Observer;
 import model.QuizModel;
-import model.entities.Question;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;

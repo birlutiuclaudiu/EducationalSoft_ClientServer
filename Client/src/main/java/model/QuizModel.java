@@ -2,7 +2,6 @@ package model;
 
 import lombok.Getter;
 import lombok.Setter;
-import model.entities.QuizQuestion;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.time.TimeSeries;
@@ -11,7 +10,7 @@ import org.json.JSONObject;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.List;
+
 
 @Getter
 @Setter
@@ -23,7 +22,6 @@ public class QuizModel extends Subject {
     private boolean logged = false;
     private JSONObject currentQuestion = null;
     private Integer index = 0;
-    private List<QuizQuestion> quizQuestionList;
     private Color answerColor;
     private String state = "pending";
 
@@ -36,7 +34,6 @@ public class QuizModel extends Subject {
         this.language = language;
         this.user = user;
         this.quiz = quiz;
-        this.quizQuestionList = new ArrayList<>();
         this.answerColor = Color.GREEN;
     }
 
@@ -44,14 +41,10 @@ public class QuizModel extends Subject {
         this.language = new Language("romanian");
         this.user = null;
         this.quiz = new JSONObject();
-        this.quizQuestionList = new ArrayList<>();
         this.answerColor = Color.GREEN;
         this.setState("non_logged");
     }
 
-    public void addNewQuizQuestion(QuizQuestion question) {
-        this.quizQuestionList.add(question);
-    }
 
     @Override
     public void notifyObserver(String operation) {

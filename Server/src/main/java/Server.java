@@ -7,11 +7,11 @@ import dto.mapper.QuestionMapper;
 import dto.mapper.UserMapper;
 import org.json.JSONObject;
 import persistence.businesslogic.QuestionBll;
-import java.time.LocalDateTime;
 import persistence.businesslogic.QuizBll;
 import persistence.businesslogic.UserBll;
 import persistence.entities.Quiz;
 import persistence.entities.User;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -19,6 +19,13 @@ import java.io.PrintStream;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class Server {
 
@@ -42,7 +49,7 @@ public class Server {
         this.bufferedReader = new BufferedReader(new InputStreamReader(s.getInputStream()));
 
         // server executes continuously
-        while(true) {
+        while (true) {
 
             String request;
 
@@ -54,6 +61,7 @@ public class Server {
                     case "GET" -> processGET(jsonObject);
                     case "POST" -> processPOST(jsonObject);
                     case "LOGIN" -> processLOGIN(jsonObject);
+                    case "CHART" -> processCHART(jsonObject);
                 }
             }
             // close connection
@@ -67,15 +75,15 @@ public class Server {
     }
 
     private void processGET(JSONObject jsonObject) throws JsonProcessingException {
-        String sendingString="";
+        String sendingString = "";
         ObjectWriter ow = new ObjectMapper().writer();
         QuestionDTO questionDTO;
-        switch (jsonObject.get("ENTITY").toString()){
+        switch (jsonObject.get("ENTITY").toString()) {
             case "question" -> {
-                questionDTO = QuestionMapper.toDTO(new QuestionBll().findById((int)jsonObject.get("ID")));
+                questionDTO = QuestionMapper.toDTO(new QuestionBll().findById((int) jsonObject.get("ID")));
                 sendingString = ow.writeValueAsString(questionDTO);
             }
-            case "user" -> sendingString="" ;
+            case "user" -> sendingString = "";
         }
 
         // send to client
@@ -89,11 +97,11 @@ public class Server {
         ObjectWriter ow = new ObjectMapper().writer();
         QuestionDTO questionDTO;
 
-        switch (jsonObject.get("ENTITY").toString()){
+        switch (jsonObject.get("ENTITY").toString()) {
             case "quiz" -> {
                 postSaveQuiz(jsonObject.get("OBJECT").toString());
             }
-            case "user" -> questionDTO=null;
+            case "user" -> questionDTO = null;
         }
         JSONObject sendingString = new JSONObject();
         sendingString.put("BAD_REQUEST", false);
@@ -103,21 +111,21 @@ public class Server {
 
     }
 
-    private void postSaveQuiz(String objectFields){
+    private void postSaveQuiz(String objectFields) {
         JSONObject jsonObject = new JSONObject(objectFields);
-        User user = new UserBll().findById((int)jsonObject.get("user_id"));
+        User user = new UserBll().findById((int) jsonObject.get("user_id"));
         Quiz quiz = Quiz.builder()
                 .date(LocalDateTime.parse(jsonObject.get("date").toString()))
-                .score((int)jsonObject.get("score"))
+                .score((int) jsonObject.get("score"))
                 .user(user)
                 .build();
         new QuizBll().saveQuiz(quiz);
         System.out.println("Quiz saved");
     }
 
-    private void processLOGIN(JSONObject jsonObject){
+    private void processLOGIN(JSONObject jsonObject) {
         ObjectWriter ow = new ObjectMapper().writer();
-        User user= null;
+        User user = null;
         UserDTO userDTO = null;
         JSONObject badRequest = new JSONObject();
         switch (jsonObject.get("SUBTYPE").toString()) {
@@ -137,19 +145,78 @@ public class Server {
                 }
             }
         }
-        String sendingString="";
-        if(user!=null){
+        String sendingString = "";
+        if (user != null) {
             userDTO = UserMapper.toDTO(user);
             try {
                 sendingString = ow.writeValueAsString(userDTO);
             } catch (JsonProcessingException e) {
                 throw new RuntimeException(e);
             }
-        }else {
+        } else {
             sendingString = badRequest.toString();
         }
         printStream.println(sendingString);
         printStream.flush();
+    }
+
+    private void processCHART(JSONObject jsonObject) {
+        User user = new UserBll().findById((int) jsonObject.get("USER_ID"));
+        JSONObject dataset = null;
+        switch (jsonObject.get("SUBTYPE").toString()) {
+            case "PIE" -> {
+                dataset = getPIEDataSet(user);
+            }
+            case "TIME" -> {
+                dataset = getTimeDataSet(user);
+            }
+            case "BAR" -> {
+                dataset = getBarDataSet(user);
+            }
+        }
+        if (dataset == null)
+            dataset = new JSONObject();
+        printStream.println(dataset);
+        printStream.flush();
+
+    }
+
+    private JSONObject getPIEDataSet(User user) {
+        QuizBll quizBll = new QuizBll();
+        List<Quiz> quizList = quizBll.getAllQuizzesByUser(user);
+        Map<Integer, Long> countResults = quizList.stream()
+                .map(Quiz::getScore)
+                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+        //create dataset for pie chart
+        return new JSONObject(countResults);
+    }
+
+    private JSONObject getTimeDataSet(User user) {
+        QuizBll quizBll = new QuizBll();
+        List<Quiz> quizList = quizBll.getAllQuizzesByUser(user);
+        Map<String, Long> countQuizPerDay = quizList.stream()
+                .map(q -> q.getDate().toLocalDate().atTime(LocalTime.MIN).toString())
+                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+
+        return new JSONObject(countQuizPerDay);
+    }
+
+    private JSONObject getBarDataSet(User user) {
+        List<Quiz> quizList = new QuizBll().getAllQuizzes();
+        //determine the average score
+        Map<String, Float> averageMap = new HashMap<>();
+        for (Quiz quiz : quizList) {
+            averageMap.put(quiz.getUser().getUsername(), quiz.getUser().getAverageScore());
+        }
+        int i = 0;
+        Map<String, Float> barData = new HashMap<>();
+        for (var entry : averageMap.entrySet()) {
+            if (entry.getKey().equals(user.getUsername()))
+                barData.put(entry.getKey(), entry.getValue());
+            else
+                barData.put("User" + (++i), entry.getValue());
+        }
+        return new JSONObject(barData);
     }
 }
 
