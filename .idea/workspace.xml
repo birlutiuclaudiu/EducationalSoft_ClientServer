@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="99cc7953-ecef-4dd0-b8da-5ac2e007ee4f" name="Changes" comment="change button text in Finish quiz at the final question" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="package-info" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/src/main/java/model/Drawing.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/model/geometryutils/ArcDrawable.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/model/geometryutils/Circle.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/model/geometryutils/GeometricElementDrawable.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/model/geometryutils/LineDrawable.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/model/geometryutils/OperationCircleProperties.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/model/geometryutils/PointDrawable.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/model/geometryutils/TuckerCircleProperty.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/model/persistence/PersistenceGeometricElementDrawable.java" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="JpbToolWindowState">
+    <option name="myId2FirstActivated">
+      <map>
+        <entry key="com.haulmont.jpb.jpaInspector" value="true" />
+        <entry key="com.haulmont.jpb.jpaPalette" value="true" />
+        <entry key="com.haulmont.jpb.jpaStructure" value="true" />
+      </map>
+    </option>
+    <option name="myId2Visible">
+      <map>
+        <entry key="com.haulmont.jpb.jpaInspector" value="false" />
+        <entry key="com.haulmont.jpb.jpaPalette" value="false" />
+        <entry key="com.haulmont.jpb.jpaStructure" value="false" />
+      </map>
+    </option>
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="25w8MBWHyp5Hy0N7nLoP9Bhxfht" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;UI_DESIGNER_EDITOR_MODE.PaletteManager.SHOW&quot;: &quot;true&quot;,
+    &quot;UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH&quot;: &quot;276&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/birlutiuclaudiu/Facultate/RC/RelayNodesConnection&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.IDE.editor.colors.Console Colors&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources/icons/questions" />
+      <recent name="$PROJECT_DIR$/src/main/resources/icons" />
+      <recent name="$PROJECT_DIR$/src/main/java/model" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources/icons/questions" />
+      <recent name="$PROJECT_DIR$/src/main/resources/icons" />
+      <recent name="$PROJECT_DIR$/src/main/resources/db/migration" />
+      <recent name="$PROJECT_DIR$/src/main/resources" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="MainClass" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="MainClass" />
+      <module name="EducationalSoft" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.MainClass" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="99cc7953-ecef-4dd0-b8da-5ac2e007ee4f" name="Changes" comment="" />
+      <created>1646426739330</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1646426739330</updated>
+      <workItem from="1646426740572" duration="6782000" />
+      <workItem from="1646481026187" duration="173000" />
+      <workItem from="1646481208958" duration="8679000" />
+      <workItem from="1646490568002" duration="13700000" />
+      <workItem from="1646512058988" duration="2534000" />
+      <workItem from="1646514608821" duration="389000" />
+      <workItem from="1646515010305" duration="255000" />
+      <workItem from="1646515285035" duration="1716000" />
+      <workItem from="1646517014325" duration="3065000" />
+      <workItem from="1646555934518" duration="7110000" />
+      <workItem from="1646564691509" duration="43081000" />
+      <workItem from="1646615888494" duration="748000" />
+      <workItem from="1646637516865" duration="16000" />
+      <workItem from="1646650255791" duration="775000" />
+      <workItem from="1646674033332" duration="233000" />
+      <workItem from="1646674327528" duration="1009000" />
+      <workItem from="1646685800135" duration="399000" />
+      <workItem from="1646691535630" duration="9281000" />
+      <workItem from="1646720835824" duration="10236000" />
+      <workItem from="1646762901333" duration="5401000" />
+      <workItem from="1646816386708" duration="6837000" />
+      <workItem from="1646863514328" duration="27000" />
+      <workItem from="1646939437466" duration="127000" />
+      <workItem from="1647238209833" duration="278000" />
+      <workItem from="1647357182599" duration="183000" />
+      <workItem from="1647392479072" duration="57000" />
+      <workItem from="1647428761938" duration="590000" />
+      <workItem from="1647423276196" duration="2463000" />
+      <workItem from="1647634833292" duration="3774000" />
+      <workItem from="1647682329240" duration="21431000" />
+      <workItem from="1647720939346" duration="23973000" />
+      <workItem from="1647762487400" duration="25923000" />
+      <workItem from="1647790260671" duration="2915000" />
+      <workItem from="1647796467228" duration="437000" />
+      <workItem from="1647813284258" duration="9490000" />
+      <workItem from="1647822790302" duration="74000" />
+      <workItem from="1647826038452" duration="69000" />
+      <workItem from="1647842766087" duration="163000" />
+      <workItem from="1647845556482" duration="357000" />
+      <workItem from="1647859120914" duration="363000" />
+      <workItem from="1647890099548" duration="15346000" />
+      <workItem from="1647960007628" duration="672000" />
+      <workItem from="1647968291551" duration="698000" />
+      <workItem from="1647978836757" duration="1278000" />
+      <workItem from="1648028619771" duration="1864000" />
+      <workItem from="1648030545388" duration="152000" />
+      <workItem from="1648629849775" duration="1412000" />
+      <workItem from="1648838067833" duration="870000" />
+      <workItem from="1650715263443" duration="760000" />
+      <workItem from="1650724836930" duration="3479000" />
+      <workItem from="1650741594359" duration="4634000" />
+      <workItem from="1650833447983" duration="10569000" />
+      <workItem from="1650844439782" duration="4544000" />
+      <workItem from="1650872136165" duration="18385000" />
+      <workItem from="1650900217576" duration="5090000" />
+      <workItem from="1650910092643" duration="21447000" />
+      <workItem from="1651003045852" duration="18496000" />
+      <workItem from="1651065323454" duration="17257000" />
+      <workItem from="1651093168755" duration="8851000" />
+      <workItem from="1651170683483" duration="414000" />
+      <workItem from="1651313119913" duration="55000" />
+      <workItem from="1651327225155" duration="518000" />
+      <workItem from="1651408637102" duration="7901000" />
+      <workItem from="1651425595955" duration="3986000" />
+      <workItem from="1651467824824" duration="36000" />
+      <workItem from="1651600325162" duration="2826000" />
+      <workItem from="1651652547054" duration="723000" />
+      <workItem from="1651653645160" duration="1007000" />
+      <workItem from="1651656760231" duration="9000" />
+      <workItem from="1651964222047" duration="385000" />
+      <workItem from="1651965083795" duration="12000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="change button text in Finish quiz at the final question" />
+    <option name="LAST_COMMIT_MESSAGE" value="change button text in Finish quiz at the final question" />
+  </component>
+</project>
