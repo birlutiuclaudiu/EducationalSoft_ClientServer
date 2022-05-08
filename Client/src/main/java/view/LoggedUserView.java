@@ -141,16 +141,17 @@ public class LoggedUserView extends JFrame implements Observer {
                 setQuestionAndAnswers();
                 //change text from start button in next
                 quizTitle.setForeground(quizModel.getAnswerColor());
-                quizTitle.setText(dictionary.get("quizTitle2") + quizModel.getQuizJSON().get("score"));
+                quizTitle.setText(dictionary.get("quizTitle2") + quizModel.getQuiz().get("score"));
                 break;
             case "final_quiz":
                 //change text from next button in start
                 startButton.setText(dictionary.get("startButton1"));
-                quizTitle.setText(dictionary.get("quizTitle3") + quizModel.getQuizJSON().get("score"));
+                quizTitle.setText(dictionary.get("quizTitle3") + quizModel.getQuiz().get("score"));
                 initQuizPage();
                 break;
             case "reset":
                 quizTitle.setText(dictionary.get("quizTitle1"));
+                initQuizPage();
                 break;
             case "set_language":
                 changeLanguage();
@@ -169,6 +170,7 @@ public class LoggedUserView extends JFrame implements Observer {
         bRadioButton.setText("B");
         cRadioButton.setText("C");
         dRadioButton.setText("D");
+        startButton.setText(dictionary.get("startButton1"));
         setHelpfulImage("icons/bgloginImage.jpg");
     }
     private void setStatisticsCharts() {
@@ -216,33 +218,33 @@ public class LoggedUserView extends JFrame implements Observer {
 
 
     private void setQuestionAndAnswers() {
-        Question question = quizModel.getCurrentQuestion();
+        JSONObject question = quizModel.getCurrentQuestion();
         switch (quizModel.getLanguage().getLanguage()) {
             case "english":
-                questionTag.setText(quizModel.getIndex() + " " + question.getEnglishBody());
-                aRadioButton.setText(question.getEnglishAnswerA());
-                bRadioButton.setText(question.getEnglishAnswerB());
-                cRadioButton.setText(question.getEnglishAnswerC());
-                dRadioButton.setText(question.getEnglishAnswerD());
+                questionTag.setText(quizModel.getIndex() + " " + question.get("englishBody"));
+                aRadioButton.setText(question.get("englishAnswerA").toString());
+                bRadioButton.setText(question.get("englishAnswerB").toString());
+                cRadioButton.setText(question.get("englishAnswerC").toString());
+                dRadioButton.setText(question.get("englishAnswerD").toString());
                 break;
             case "german":
-                questionTag.setText(quizModel.getIndex() + " " + question.getGermanBody());
-                aRadioButton.setText(question.getGermanAnswerA());
-                bRadioButton.setText(question.getGermanAnswerB());
-                cRadioButton.setText(question.getGermanAnswerC());
-                dRadioButton.setText(question.getGermanAnswerD());
+                questionTag.setText(quizModel.getIndex() + " " + question.get("germanBody"));
+                aRadioButton.setText(question.get("germanAnswerA").toString());
+                bRadioButton.setText(question.get("germanAnswerB").toString());
+                cRadioButton.setText(question.get("germanAnswerC").toString());
+                dRadioButton.setText(question.get("germanAnswerD").toString());
                 break;
             default:
-                questionTag.setText(quizModel.getIndex() + " " + question.getRomanianBody());
-                aRadioButton.setText(question.getRomanianAnswerA());
-                bRadioButton.setText(question.getRomanianAnswerB());
-                cRadioButton.setText(question.getRomanianAnswerC());
-                dRadioButton.setText(question.getRomanianAnswerD());
+                questionTag.setText(quizModel.getIndex() + " " + question.get("romanianBody"));
+                aRadioButton.setText(question.get("romanianAnswerA").toString());
+                bRadioButton.setText(question.get("romanianAnswerB").toString());
+                cRadioButton.setText(question.get("romanianAnswerC").toString());
+                dRadioButton.setText(question.get("romanianAnswerD").toString());
                 break;
         }
         //treat the case when the question has an image in resources
-        if (question.getFigureURL() != null && !Objects.equals(question.getFigureURL(), "")) {
-            setHelpfulImage(question.getFigureURL());
+        if (question.get("figureURL") != null && !Objects.equals(question.get("figureURL"), "")) {
+            setHelpfulImage(question.get("figureURL").toString());
         } else {
             setHelpfulImage("icons/bgloginImage.jpg");
         }
@@ -277,7 +279,7 @@ public class LoggedUserView extends JFrame implements Observer {
         @Override
         public void windowClosing(java.awt.event.WindowEvent windowEvent) {
             quizModel.setLogged(false);
-            quizModel.setQuizJSON(new JSONObject());
+            quizModel.setQuiz(new JSONObject());
             quizModel.setUser(null);
             quizModel.setState("pending");
         }

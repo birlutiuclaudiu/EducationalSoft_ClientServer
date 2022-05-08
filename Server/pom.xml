@@ -53,6 +53,12 @@
             <version>2.11.1</version>
             <scope>compile</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20180130</version>
+        </dependency>
     </dependencies>
 
 

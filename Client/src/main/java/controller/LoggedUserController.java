@@ -1,25 +1,22 @@
 package controller;
 
-import database.businesslogic.QuestionBll;
+
 import database.businesslogic.QuizBll;
-import database.businesslogic.QuizQuestionBll;
 import model.QuizModel;
-import model.entities.Question;
 import model.entities.Quiz;
-import model.entities.QuizQuestion;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.time.Day;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
 import org.json.JSONObject;
 import view.LoggedUserView;
-
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
@@ -47,21 +44,20 @@ public class LoggedUserController {
             if (model.getState().equals("pending") || model.getState().equals("final_quiz")) {
                 model.setIndex(1);
                 model.setQuizQuestionList(new ArrayList<>());
+                //initializare quiz
                 JSONObject quizJSON = new JSONObject();
                 quizJSON.put("user_id", model.getUser().getUserID());
                 quizJSON.put("date", LocalDateTime.now().toString());
                 quizJSON.put("score", 0);
-                model.setQuizJSON(quizJSON);
-                QuestionBll questionBll = new QuestionBll();
-                Question question = questionBll.findById(getRandomQuestion());
-                model.setCurrentQuestion(question);
+                model.setQuiz(quizJSON);
+                getRandomQuestion(); //call server for a question
 
                 model.notifyObserver("open_quiz");
                 model.setState("open_quiz");
             } else {
-                if (String.valueOf(model.getCurrentQuestion().getCorrectAnswer()).equals(loggedUserView.getSelectedAnswer())) {
-                    int newScore = (int)model.getQuizJSON().get("score") + 10;
-                    model.getQuizJSON().put("score", newScore);
+                if (String.valueOf(model.getCurrentQuestion().get("correctAnswer")).equals(loggedUserView.getSelectedAnswer())) {
+                    int newScore = (int)model.getQuiz().get("score") + 10;
+                    model.getQuiz().put("score", newScore);
                     model.setAnswerColor(Color.GREEN);
                 } else {
                     model.setAnswerColor(Color.RED);
@@ -74,36 +70,40 @@ public class LoggedUserController {
                     model.setState("final_quiz");
                 } else {
                     model.setIndex(model.getIndex() + 1);
-                    Question question = new QuestionBll().findById(getRandomQuestion());
-                    model.setCurrentQuestion(question);
+                    getRandomQuestion(); //call for server
                     model.notifyObserver("next_question");
                     model.setState("next_question");
                 }
             }
         }
 
-        private int getRandomQuestion() {
+        private void getRandomQuestion() {
             Random random = new Random();
             //choose the question by dificulty; divide the 50 exiting questions in ten intervals
-            return random.nextInt(5) + (model.getIndex() - 1) * 5 + 1;
+            int id_question = random.nextInt(5) + (model.getIndex() - 1) * 5 + 1;
+            EduClient eduClient = EduClient.getInstance();
+            try {
+                JSONObject currentQuestion = eduClient.getRequestById("question", id_question);
+                model.setCurrentQuestion(currentQuestion);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
 
         private void saveResultsQuiz() {
-            //save quiz information
-            System.out.println(model.getQuizJSON());
-            //save the specific questions to this quiz
-            QuizQuestionBll questionBll = new QuizQuestionBll();
-            /*for (QuizQuestion question : model.getQuizQuestionList()) {
-                question.setQuiz(model.getQuiz());
-                questionBll.saveQuizQuestion(question);
-            }*/
+            JSONObject jsonObject = model.getQuiz();
+            try {
+                EduClient.getInstance().postObject(jsonObject, "quiz");
+            } catch (IOException e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
+            }
         }
     }
 
     private class ResetListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            //model.setOpenQuiz(false);
+            model.setState("pending");
             model.notifyObserver("reset");
         }
     }
@@ -116,6 +116,10 @@ public class LoggedUserController {
                 setPieAndTimeDataset();
                 setBarDataSet();
                 model.notifyObserver("set_charts");
+                model.setState("set_charts");
+            }else{
+                model.notifyObserver("reset");
+                model.setState("pending");
             }
         }
 

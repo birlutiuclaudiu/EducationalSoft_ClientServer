@@ -2,8 +2,6 @@ package model;
 
 import lombok.Getter;
 import lombok.Setter;
-import model.entities.Question;
-import model.entities.Quiz;
 import model.entities.QuizQuestion;
 import model.entities.User;
 import org.jfree.data.category.DefaultCategoryDataset;
@@ -22,9 +20,10 @@ public class QuizModel extends Subject {
 
     private Language language;
     private User user;
-    private JSONObject quizJSON;
+    private JSONObject userJson;
+    private JSONObject quiz;
     private boolean logged =false;
-    private Question currentQuestion=null;
+    private JSONObject currentQuestion=null;
     private Integer index=0;
     private List<QuizQuestion> quizQuestionList;
     private Color answerColor;
@@ -38,7 +37,8 @@ public class QuizModel extends Subject {
     public QuizModel(Language language, User user, JSONObject quiz) {
         this.language = language;
         this.user = user;
-        this.quizJSON = quiz;
+        this.userJson = new JSONObject();
+        this.quiz = quiz;
         this.quizQuestionList = new ArrayList<>();
         this.answerColor = Color.GREEN;
     }
@@ -46,9 +46,11 @@ public class QuizModel extends Subject {
     public QuizModel() {
         this.language = new Language("romanian");
         this.user = null;
-        this.quizJSON = new JSONObject();
+        this.userJson = null;
+        this.quiz = new JSONObject();
         this.quizQuestionList = new ArrayList<>();
         this.answerColor = Color.GREEN;
+        this.setState("non_logged");
     }
 
     public void addNewQuizQuestion(QuizQuestion question){

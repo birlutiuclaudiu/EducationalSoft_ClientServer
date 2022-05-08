@@ -1,7 +1,16 @@
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
-import persistence.entities.FooClass;
+import dto.QuestionDTO;
+import dto.mapper.QuestionMapper;
+import org.json.JSONObject;
+import persistence.businesslogic.QuestionBll;
+import java.time.LocalDateTime;
+
+import persistence.businesslogic.QuizBll;
+import persistence.businesslogic.UserBll;
+import persistence.entities.Quiz;
+import persistence.entities.User;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -39,13 +48,14 @@ public class Server {
 
             // read from client
             while ((request = bufferedReader.readLine()) != null) {
-                System.out.println(request);
-                switch (request) {
-                    case "ala" -> process_ala();
-                    case "bala" -> process_bala();
+                JSONObject jsonObject = new JSONObject(request);
+                System.out.println(jsonObject);
+                switch (jsonObject.get("TYPE").toString()) {
+                    case "GET" -> processGET(jsonObject);
+                    case "POST" -> processPOST(jsonObject);
+                    case "LOGIN" -> processLOGIN(jsonObject);
                 }
             }
-
             // close connection
             printStream.close();
             bufferedReader.close();
@@ -56,29 +66,69 @@ public class Server {
         } // end of while
     }
 
-    private void process_ala() throws JsonProcessingException {
-        String str1;
-        FooClass fooClass = new FooClass("aha1", "aha2",
-                "aha3", 3);
+    private void processGET(JSONObject jsonObject) throws JsonProcessingException {
+        String sendingString="";
         ObjectWriter ow = new ObjectMapper().writer();
-        str1 = ow.writeValueAsString(fooClass);
-        System.out.println(str1);
+        QuestionDTO questionDTO;
+        switch (jsonObject.get("ENTITY").toString()){
+            case "question" -> {
+                questionDTO = QuestionMapper.toDTO(new QuestionBll().findById((int)jsonObject.get("ID")));
+                sendingString = ow.writeValueAsString(questionDTO);
+            }
+            case "user" -> sendingString="" ;
+        }
+
         // send to client
-        printStream.println(str1);
+        System.out.println(sendingString);
+        printStream.println(sendingString);
         printStream.flush();
     }
 
-    private void process_bala() throws JsonProcessingException {
-        String str1;
-        FooClass fooClass = new FooClass("bala1", "bala2",
-                "bala3", 4);
+    private void processPOST(JSONObject jsonObject) throws JsonProcessingException {
+
         ObjectWriter ow = new ObjectMapper().writer();
-        str1 = ow.writeValueAsString(fooClass);
-        System.out.println(str1);
-        // send to client
-        printStream.println(str1);
+        QuestionDTO questionDTO;
+
+        switch (jsonObject.get("ENTITY").toString()){
+            case "quiz" -> {
+                postSaveQuiz(jsonObject.get("OBJECT").toString());
+            }
+            case "user" -> questionDTO=null;
+        }
+        JSONObject sendingString = new JSONObject();
+        sendingString.put("BAD_REQUEST", false);
+        System.out.println(sendingString);
+        printStream.println(sendingString);
         printStream.flush();
 
+    }
+
+    private void postSaveQuiz(String objectFields){
+        JSONObject jsonObject = new JSONObject(objectFields);
+        User user = new UserBll().findById((int)jsonObject.get("user_id"));
+        Quiz quiz = Quiz.builder()
+                .date(LocalDateTime.parse(jsonObject.get("date").toString()))
+                .score((int)jsonObject.get("score"))
+                .user(user)
+                .build();
+        new QuizBll().saveQuiz(quiz);
+        System.out.println("Quiz saved");
+    }
+
+    private void processLOGIN(JSONObject jsonObject){
+        ObjectWriter ow = new ObjectMapper().writer();
+
+        switch (jsonObject.get("SUBTYPE").toString()){
+            case "LOGIN" -> {
+                postSaveQuiz(jsonObject.get("OBJECT").toString());
+            }
+            case "REGISTER" -> ow.withDefaultPrettyPrinter();
+        }
+        JSONObject sendingString = new JSONObject();
+        sendingString.put("BAD_REQUEST", false);
+        System.out.println(sendingString);
+        printStream.println(sendingString);
+        printStream.flush();
     }
 }
 
