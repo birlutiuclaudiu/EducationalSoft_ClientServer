@@ -264,7 +264,8 @@ public class LoggedUserView extends JFrame implements Observer {
     private void changeLanguage() {
         dictionary = quizModel.getLanguage().getLanguageLabels();
         resetButton.setText(dictionary.get("reset"));
-        if (!quizModel.getState().equals("open_quiz")) {
+        if (!(quizModel.getState().equals("open_quiz")||quizModel.getState().equals("next_question")
+                      ||quizModel.getState().equals("final_question"))) {
             quizTitle.setText(dictionary.get("quizTitle1"));
             questionTag.setText(dictionary.get("questionTag"));
             startButton.setText(dictionary.get("startButton1"));
