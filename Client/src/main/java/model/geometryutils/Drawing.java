@@ -15,7 +15,7 @@ public class Drawing implements Serializable {
 
     List<Float> triangleX;
     List<Float> triangleY;
-    private List<GeometricElementDrawable> geometricElementDrawables;
+    private List<ShapeDrawable> geometricElementDrawables;
     //line properties
     private String lineStyle;
     private Float lineWidth;
@@ -32,7 +32,7 @@ public class Drawing implements Serializable {
         this.triangleY = new ArrayList<>(List.of(new Float[]{400f, 100f, 400f}));
     }
 
-    public Drawing(List<Float> triangleX, List<Float> triangleY, List<GeometricElementDrawable> geometricElementDrawables,
+    public Drawing(List<Float> triangleX, List<Float> triangleY, List<ShapeDrawable> geometricElementDrawables,
                    String lineStyle, Float lineWidth, Color color, int oldX, int oldY, int newX, int newY) {
         this.triangleX = new ArrayList<>(List.of(new Float[]{200f, 500f, 400f}));
         this.triangleY = new ArrayList<>(List.of(new Float[]{400f, 100f, 400f}));
@@ -46,7 +46,7 @@ public class Drawing implements Serializable {
         this.newY = newY;
     }
 
-    public Drawing(List<GeometricElementDrawable> geometricElementDrawables) {
+    public Drawing(List<ShapeDrawable> geometricElementDrawables) {
         this.geometricElementDrawables = geometricElementDrawables;
 
     }
@@ -60,7 +60,7 @@ public class Drawing implements Serializable {
     }
 
     public void drawGeometricElements(Graphics2D graphics2D) {
-        for (GeometricElementDrawable geom : geometricElementDrawables) {
+        for (ShapeDrawable geom : geometricElementDrawables) {
             geom.draw(graphics2D);
         }
     }
