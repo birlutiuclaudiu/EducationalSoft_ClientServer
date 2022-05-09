@@ -42,7 +42,8 @@ public class Server {
 
     public void startServer() throws IOException {
         Socket s = this.serverSocket.accept();
-        System.out.println("Connection established with " + s.getInetAddress().getHostAddress());
+        ProxyConnection proxyConnection = new ProxyConnection(s.getInetAddress().getHostAddress());
+        proxyConnection.grantConnection();
         // to send data to the client
         this.printStream = new PrintStream(s.getOutputStream());
 
