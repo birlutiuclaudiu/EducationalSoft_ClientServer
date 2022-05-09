@@ -3,7 +3,7 @@ package model.geometryutils;
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
 
-public class CircleDrawable extends GeometricElementDrawable implements java.io.Serializable{
+public class CircleDrawable extends GeometricElementDrawable implements java.io.Serializable, ShapeDrawable{
 
     private Circle circle;
 

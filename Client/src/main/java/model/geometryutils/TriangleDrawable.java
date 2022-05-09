@@ -3,7 +3,7 @@ package model.geometryutils;
 import java.awt.*;
 import java.util.List;
 
-public class TriangleDrawable extends GeometricElementDrawable implements java.io.Serializable{
+public class TriangleDrawable extends GeometricElementDrawable implements java.io.Serializable, ShapeDrawable{
 
     private Triangle triangle;
 

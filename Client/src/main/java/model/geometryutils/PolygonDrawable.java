@@ -3,7 +3,7 @@ package model.geometryutils;
 import java.awt.*;
 import java.util.List;
 
-public class PolygonDrawable extends GeometricElementDrawable implements java.io.Serializable {
+public class PolygonDrawable extends GeometricElementDrawable implements java.io.Serializable, ShapeDrawable {
 
     private Polygon polygon;
     public PolygonDrawable() {

@@ -2,7 +2,7 @@ package model.geometryutils;
 
 import java.awt.*;
 
-public abstract class GeometricElementDrawable implements java.io.Serializable{
+public abstract class GeometricElementDrawable implements java.io.Serializable, ShapeDrawable{
 
     private Color color;
     private String lineStyle;
@@ -49,7 +49,5 @@ public abstract class GeometricElementDrawable implements java.io.Serializable{
                 ", width=" + width +
                 '}';
     }
-
-    public abstract void draw(Graphics2D g);
 
 }

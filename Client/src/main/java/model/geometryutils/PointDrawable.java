@@ -2,7 +2,7 @@ package model.geometryutils;
 
 import java.awt.*;
 
-public class PointDrawable extends GeometricElementDrawable implements java.io.Serializable{
+public class PointDrawable extends GeometricElementDrawable implements java.io.Serializable, ShapeDrawable{
     private Point point;
 
 

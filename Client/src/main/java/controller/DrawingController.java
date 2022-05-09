@@ -234,7 +234,10 @@ public class DrawingController {
         Line bisA = new Line(circle.getCenter(), triangle.getPoints().get(0));
         Line bisB = new Line(circle.getCenter(), triangle.getPoints().get(1));
         Line bisC = new Line(circle.getCenter(), triangle.getPoints().get(2));
-        drawing.addGeometricElement(new CircleDrawable(circle, Color.green, "discontinue", 2.0f));
+        CircleDrawable circleDrawable = (CircleDrawable) new ShapeDrawableFactory().getShape("CIRCLE");
+        circleDrawable.setCircle(circle); circleDrawable.setColor(Color.green); circleDrawable.setLineStyle("discontinue");
+        circleDrawable.setWidth(2.0f);
+        drawing.addGeometricElement(circleDrawable);
         drawing.addGeometricElement(new LineDrawable(bisA, Color.MAGENTA, "discontinue", 2f));
         drawing.addGeometricElement(new LineDrawable(bisB, Color.MAGENTA, "discontinue", 2f));
         drawing.addGeometricElement(new LineDrawable(bisC, Color.MAGENTA, "discontinue", 2f));

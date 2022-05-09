@@ -3,7 +3,7 @@ package model.geometryutils;
 import java.awt.*;
 import java.awt.geom.Line2D;
 
-public class LineDrawable extends GeometricElementDrawable implements java.io.Serializable{
+public class LineDrawable extends GeometricElementDrawable implements java.io.Serializable, ShapeDrawable{
 
     private Line line=null;
 
