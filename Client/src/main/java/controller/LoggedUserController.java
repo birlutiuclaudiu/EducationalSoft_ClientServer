@@ -1,5 +1,6 @@
 package controller;
 
+import connection.EduClient;
 import model.QuizModel;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.time.Day;

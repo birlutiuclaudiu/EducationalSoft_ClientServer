@@ -1,12 +1,10 @@
 import controller.DrawingController;
-import controller.EduClient;
+import connection.EduClient;
 import model.EducationalModel;
 import view.EducationalSoftGUI;
-import java.io.IOException;
-
 
 public class ClientApp {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args)  {
         //Create connection
         EduClient.getInstance();
         EducationalModel model = new EducationalModel();

@@ -1,5 +1,6 @@
 package controller;
 
+import connection.EduClient;
 import model.QuizModel;
 import org.json.JSONObject;
 import view.LoggedUserView;
