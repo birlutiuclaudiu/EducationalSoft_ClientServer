@@ -1,15 +1,13 @@
-package connections;
+package connection;
 
-import connections.ClientConnected;
-import connections.ConnectionClientServer;
 import lombok.Getter;
 
 @Getter
-public class ProxyConnection implements ConnectionClientServer {
+public class ProxyClientConnected implements ConnectionClientServer {
 
     private String ipAddress;
     private ClientConnected clientConnected;
-    public ProxyConnection(String ipAddress){
+    public ProxyClientConnected(String ipAddress){
         this.ipAddress = ipAddress;
     }
     @Override

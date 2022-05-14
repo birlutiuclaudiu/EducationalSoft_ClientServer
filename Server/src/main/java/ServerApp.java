@@ -1,4 +1,4 @@
-import connections.Server;
+import connection.Server;
 import persistence.DataBaseSession;
 
 import java.io.IOException;

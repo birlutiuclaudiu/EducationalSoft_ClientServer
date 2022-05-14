@@ -1,4 +1,4 @@
-package connections;
+package connection;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -44,7 +44,7 @@ public class Server {
 
     public void startServer() throws IOException {
         Socket s = this.serverSocket.accept();
-        ProxyConnection proxyConnection = new ProxyConnection(s.getInetAddress().getHostAddress());
+        ProxyClientConnected proxyConnection = new ProxyClientConnected(s.getInetAddress().getHostAddress());
         proxyConnection.grantConnection();
         if (proxyConnection.getClientConnected() == null) return;
         // to send data to the client
