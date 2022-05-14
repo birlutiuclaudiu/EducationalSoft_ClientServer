@@ -3,13 +3,14 @@ package model.geometryutils;
 import java.awt.*;
 import java.awt.geom.Line2D;
 
-public class LineDrawable extends GeometricElementDrawable implements java.io.Serializable, ShapeDrawable{
+public class LineDrawable extends GeometricElementDrawable implements java.io.Serializable, ShapeDrawable {
 
-    private Line line=null;
+    private Line line = null;
 
     public LineDrawable() {
 
     }
+
     public LineDrawable(Line line) {
         this.line = line;
     }
@@ -27,10 +28,7 @@ public class LineDrawable extends GeometricElementDrawable implements java.io.Se
         float[] dash1 = {10.0f, 20.0f};
         BasicStroke basicStroke;
         if (super.getLineStyle().contains("discont")) {
-            basicStroke = new BasicStroke(super.getWidth(),
-                    BasicStroke.CAP_ROUND,
-                    BasicStroke.JOIN_MITER,
-                    10.0f, dash1, 5.0f);
+            basicStroke = new BasicStroke(super.getWidth(), BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER, 10.0f, dash1, 5.0f);
         } else {
             basicStroke = new BasicStroke(super.getWidth());
         }
@@ -39,6 +37,7 @@ public class LineDrawable extends GeometricElementDrawable implements java.io.Se
         graphics2D.draw(line2D);
 
     }
+
     public Line getLine() {
         return line;
     }

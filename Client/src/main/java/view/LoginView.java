@@ -2,12 +2,14 @@ package view;
 
 import model.Observer;
 import model.QuizModel;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.Map;
 
 public class LoginView extends JFrame implements Observer {
+    private final QuizModel quizModel;
     private JPanel mainPanel;
     private JTextField userNameField;
     private JPasswordField passwordField;
@@ -16,8 +18,6 @@ public class LoginView extends JFrame implements Observer {
     private JLabel loginTitle;
     private JLabel usernameTitle;
     private JLabel passwordTitle;
-
-    private final QuizModel quizModel;
 
     public LoginView(String title, QuizModel model) {
         super(title);

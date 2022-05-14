@@ -3,7 +3,7 @@ package model.geometryutils;
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
 
-public class CircleDrawable extends GeometricElementDrawable implements java.io.Serializable, ShapeDrawable{
+public class CircleDrawable extends GeometricElementDrawable implements java.io.Serializable, ShapeDrawable {
 
     private Circle circle;
 
@@ -35,10 +35,7 @@ public class CircleDrawable extends GeometricElementDrawable implements java.io.
         float[] dash1 = {10.0f, 20.0f};
         BasicStroke basicStroke;
         if (super.getLineStyle().contains("discont")) {
-            basicStroke = new BasicStroke(super.getWidth(),
-                    BasicStroke.CAP_ROUND,
-                    BasicStroke.JOIN_MITER,
-                    10.0f, dash1, 5.0f);
+            basicStroke = new BasicStroke(super.getWidth(), BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER, 10.0f, dash1, 5.0f);
         } else {
             basicStroke = new BasicStroke(super.getWidth());
         }

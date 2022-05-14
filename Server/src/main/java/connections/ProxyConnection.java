@@ -2,7 +2,9 @@ package connections;
 
 import connections.ClientConnected;
 import connections.ConnectionClientServer;
+import lombok.Getter;
 
+@Getter
 public class ProxyConnection implements ConnectionClientServer {
 
     private String ipAddress;

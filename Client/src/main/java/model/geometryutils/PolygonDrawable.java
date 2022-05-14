@@ -6,9 +6,11 @@ import java.util.List;
 public class PolygonDrawable extends GeometricElementDrawable implements java.io.Serializable, ShapeDrawable {
 
     private Polygon polygon;
+
     public PolygonDrawable() {
         this.polygon = new Polygon();
     }
+
     public PolygonDrawable(Polygon polygon) {
         this.polygon = polygon;
     }
@@ -31,11 +33,11 @@ public class PolygonDrawable extends GeometricElementDrawable implements java.io
         lineDrawable.draw(graphics2D);
     }
 
-    public void setPolygon(Polygon polygon) {
-        this.polygon = polygon;
-    }
-
     public Polygon getPolygon() {
         return polygon;
+    }
+
+    public void setPolygon(Polygon polygon) {
+        this.polygon = polygon;
     }
 }

@@ -20,7 +20,7 @@ public class QuizDao extends AbstractDao<Quiz> {
         try {
             Query query = session.createQuery("from Quiz where user=:user");
             query.setParameter("user", user);
-            List quizzes =  query.getResultList();
+            List quizzes = query.getResultList();
             transaction.commit();
             return quizzes;
         } catch (HibernateException exc) {

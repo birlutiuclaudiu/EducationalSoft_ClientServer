@@ -1,18 +1,14 @@
 package controller;
+
 import controller.command.DrawCommand;
 import controller.command.ICommand;
 import controller.command.LoadCommand;
 import controller.command.SaveCommand;
-import model.geometryutils.Drawing;
 import model.EducationalModel;
 import model.QuizModel;
-import model.geometryutils.OperationCircleProperties;
-import model.geometryutils.Point;
-import model.geometryutils.Polygon;
-import model.geometryutils.*;
-import model.persistence.PersistenceGeometricElementDrawable;
 import view.EducationalSoftGUI;
 import view.LoginView;
+
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
@@ -21,19 +17,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.IOException;
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 
 public class DrawingController {
     private final EducationalSoftGUI educationalSoftGUI;
     private final QuizModel quizModel;
+    private final EducationalModel modelEdu;
     private LoginView loginView;
     private LoginController loginController;
-
-    private final EducationalModel modelEdu;
 
     public DrawingController(EducationalSoftGUI educationalSoftGUI, EducationalModel educationalModel) {
         this.educationalSoftGUI = educationalSoftGUI;
@@ -51,18 +41,18 @@ public class DrawingController {
     }
 
     public void drawElements() {
-        ICommand drawingCommand = new DrawCommand(modelEdu,educationalSoftGUI);
+        ICommand drawingCommand = new DrawCommand(modelEdu, educationalSoftGUI);
         drawingCommand.Execute();
     }
 
     /////////////////////////////////////////////   FOR PERSISTENCE    //////////////////////////////////////////////
     private void saveFigure(String filePath) {
-        ICommand saveCommand = new SaveCommand(modelEdu,filePath);
+        ICommand saveCommand = new SaveCommand(modelEdu, filePath);
         saveCommand.Execute();
     }
 
     private void loadFigure(String filePath) {
-        ICommand loadCommand = new LoadCommand(modelEdu,filePath);
+        ICommand loadCommand = new LoadCommand(modelEdu, filePath);
         loadCommand.Execute();
     }
 
@@ -135,6 +125,7 @@ public class DrawingController {
             quizModel.notifyObserver("set_language");
         }
     }
+
     private class EnglishListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -144,6 +135,7 @@ public class DrawingController {
             quizModel.notifyObserver("set_language");
         }
     }
+
     private class GermanListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -158,13 +150,13 @@ public class DrawingController {
         @Override
         public void actionPerformed(ActionEvent e) {
             //determine when the button is avaible
-            if(loginView !=null && !loginView.isVisible() && quizModel!=null && quizModel.isLogged()){
+            if (loginView != null && !loginView.isVisible() && quizModel != null && quizModel.isLogged()) {
                 JOptionPane.showMessageDialog(null, "You are already logged");
-            }else if(loginView!=null && !loginView.isVisible() && quizModel!=null){
+            } else if (loginView != null && !loginView.isVisible() && quizModel != null) {
                 loginView.setVisible(true);
-            }else if(loginView!=null && loginView.isVisible()) {
+            } else if (loginView != null && loginView.isVisible()) {
                 loginView.setVisible(true);
-            }else{
+            } else {
                 loginView = new LoginView("Login page", quizModel);
                 loginController = new LoginController(quizModel, loginView);
                 loginView.setVisible(true);

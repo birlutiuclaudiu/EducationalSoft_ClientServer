@@ -2,7 +2,7 @@ package model.geometryutils;
 
 import java.awt.*;
 
-public abstract class GeometricElementDrawable implements java.io.Serializable, ShapeDrawable{
+public abstract class GeometricElementDrawable implements java.io.Serializable, ShapeDrawable {
 
     private Color color;
     private String lineStyle;
@@ -21,20 +21,20 @@ public abstract class GeometricElementDrawable implements java.io.Serializable, 
         return color;
     }
 
-    public String getLineStyle() {
-        return lineStyle;
-    }
-
-    public Float getWidth() {
-        return width;
-    }
-
     public void setColor(Color color) {
         this.color = color;
     }
 
+    public String getLineStyle() {
+        return lineStyle;
+    }
+
     public void setLineStyle(String lineStyle) {
         this.lineStyle = lineStyle;
+    }
+
+    public Float getWidth() {
+        return width;
     }
 
     public void setWidth(Float width) {
@@ -43,11 +43,7 @@ public abstract class GeometricElementDrawable implements java.io.Serializable, 
 
     @Override
     public String toString() {
-        return "GeometricElementDrawable{" +
-                "color=" + color +
-                ", lineStyle='" + lineStyle + '\'' +
-                ", width=" + width +
-                '}';
+        return "GeometricElementDrawable{" + "color=" + color + ", lineStyle='" + lineStyle + '\'' + ", width=" + width + '}';
     }
 
 }

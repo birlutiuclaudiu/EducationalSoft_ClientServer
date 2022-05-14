@@ -33,12 +33,12 @@ public class Point extends GeometricElement implements java.io.Serializable {
         return x;
     }
 
-    public float getY() {
-        return y;
-    }
-
     public void setX(float x) {
         this.x = x;
+    }
+
+    public float getY() {
+        return y;
     }
 
     public void setY(float y) {
@@ -71,8 +71,7 @@ public class Point extends GeometricElement implements java.io.Serializable {
         float cos = dotProduct / (length1 * length2);
         float projLen = cos * length2;
 
-        return new Point(line.getP1().getX() + projLen * vect1.getX() / length1,
-                line.getP1().getY() + projLen * vect1.getY() / length1);
+        return new Point(line.getP1().getX() + projLen * vect1.getX() / length1, line.getP1().getY() + projLen * vect1.getY() / length1);
 
     }
 
@@ -101,10 +100,7 @@ public class Point extends GeometricElement implements java.io.Serializable {
 
     @Override
     public String toString() {
-        return "Point{" +
-                "x=" + x +
-                ", y=" + y +
-                '}';
+        return "Point{" + "x=" + x + ", y=" + y + '}';
     }
 
 }

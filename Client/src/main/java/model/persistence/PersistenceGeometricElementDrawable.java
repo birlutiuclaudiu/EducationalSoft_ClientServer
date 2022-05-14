@@ -12,6 +12,7 @@ public class PersistenceGeometricElementDrawable {
 
     public PersistenceGeometricElementDrawable() {
     }
+
     public void saveElementToXML(Drawing drawing, String filePath) {
         try {
             File file = new File(filePath);
@@ -29,7 +30,7 @@ public class PersistenceGeometricElementDrawable {
 
     }
 
-    public Drawing loadElementFromXML(String filePah) throws  IOException {
+    public Drawing loadElementFromXML(String filePah) throws IOException {
 
         FileInputStream fileInputStream = new FileInputStream(filePah);
         BufferedInputStream buffer = new BufferedInputStream(fileInputStream);

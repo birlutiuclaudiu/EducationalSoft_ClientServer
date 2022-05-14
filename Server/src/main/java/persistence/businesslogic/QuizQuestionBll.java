@@ -6,9 +6,9 @@ import persistence.entities.QuizQuestion;
 
 public class QuizQuestionBll {
 
-    private QuizQuestionDao questionDao;
+    private final QuizQuestionDao questionDao;
 
-    public QuizQuestionBll(){
+    public QuizQuestionBll() {
         this.questionDao = new QuizQuestionDao();
     }
 

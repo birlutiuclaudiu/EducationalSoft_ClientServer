@@ -3,7 +3,6 @@ package connections;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
-import connections.ProxyConnection;
 import dto.QuestionDTO;
 import dto.UserDTO;
 import dto.mapper.QuestionMapper;
@@ -32,7 +31,7 @@ import java.util.stream.Collectors;
 
 public class Server {
 
-    private ServerSocket serverSocket;
+    private final ServerSocket serverSocket;
     private PrintStream printStream;
     private BufferedReader bufferedReader;
     private ObjectWriter objectWriter;
@@ -47,19 +46,20 @@ public class Server {
         Socket s = this.serverSocket.accept();
         ProxyConnection proxyConnection = new ProxyConnection(s.getInetAddress().getHostAddress());
         proxyConnection.grantConnection();
+        if (proxyConnection.getClientConnected() == null) return;
         // to send data to the client
         this.printStream = new PrintStream(s.getOutputStream());
-
         // to read data coming from the client
         this.bufferedReader = new BufferedReader(new InputStreamReader(s.getInputStream()));
         this.objectWriter = new ObjectMapper().writer();
         // server executes continuously
         while (true) {
-            String request;
+            String request;    //this a string which represents the json object with the json of request from client
             // read from client
             while ((request = bufferedReader.readLine()) != null) {
                 JSONObject jsonObject = new JSONObject(request);
                 System.out.println("HEADER REQUEST" + jsonObject.toString(1));
+                //it was defined some specific requests from client
                 switch (jsonObject.get("TYPE").toString()) {
                     case "GET" -> processGET(jsonObject);
                     case "POST" -> processPOST(jsonObject);
@@ -82,9 +82,9 @@ public class Server {
         QuestionDTO questionDTO;
         switch (jsonObject.get("ENTITY").toString()) {
             case "question" -> {
-                System.out.println("Sending to client the question with id: "+jsonObject.get("ID"));
+                System.out.println("Sending to client the question with id: " + jsonObject.get("ID"));
                 questionDTO = QuestionMapper.toDTO(new QuestionBll().findById((int) jsonObject.get("ID")));
-                sendingString =  this.objectWriter.writeValueAsString(questionDTO);
+                sendingString = this.objectWriter.writeValueAsString(questionDTO);
             }
         }
         // send to client
@@ -92,7 +92,7 @@ public class Server {
         printStream.flush();
     }
 
-    private void processPOST(JSONObject jsonObject) throws JsonProcessingException {
+    private void processPOST(JSONObject jsonObject) {
 
         switch (jsonObject.get("ENTITY").toString()) {
             case "quiz" -> {
@@ -101,7 +101,6 @@ public class Server {
         }
         JSONObject sendingString = new JSONObject();
         sendingString.put("BAD_REQUEST", false);
-        System.out.println(sendingString);
         printStream.println(sendingString);
         printStream.flush();
     }
@@ -112,8 +111,7 @@ public class Server {
         Quiz quiz = Quiz.builder()
                 .date(LocalDateTime.parse(jsonObject.get("date").toString()))
                 .score((int) jsonObject.get("score"))
-                .user(user)
-                .build();
+                .user(user).build();
         new QuizBll().saveQuiz(quiz);
         System.out.println("Quiz saved: " + jsonObject.toString(1));
     }
@@ -125,15 +123,12 @@ public class Server {
         switch (jsonObject.get("SUBTYPE").toString()) {
             case "LOGIN" -> {
                 user = new UserBll().exists(jsonObject.get("USERNAME").toString(), jsonObject.get("PASSWORD").toString());
-                if (user != null)
-                    userDTO = UserMapper.toDTO(user);
-                else
-                    badRequest.put("MESSAGE", "Invalid credentials");
+                if (user != null) userDTO = UserMapper.toDTO(user);
+                else badRequest.put("MESSAGE", "Invalid credentials");
             }
             case "REGISTER" -> {
                 try {
-                    user = new UserBll().createNewUser(jsonObject.get("USERNAME").toString(),
-                            jsonObject.get("PASSWORD").toString());
+                    user = new UserBll().createNewUser(jsonObject.get("USERNAME").toString(), jsonObject.get("PASSWORD").toString());
                 } catch (Exception e) {
                     badRequest.put("MESSAGE", e.getMessage());
                 }
@@ -168,8 +163,7 @@ public class Server {
                 dataset = getBarDataSet(user);
             }
         }
-        if (dataset == null)
-            dataset = new JSONObject();
+        if (dataset == null) dataset = new JSONObject();
         printStream.println(dataset);
         printStream.flush();
 
@@ -178,9 +172,7 @@ public class Server {
     private JSONObject getPIEDataSet(User user) {
         QuizBll quizBll = new QuizBll();
         List<Quiz> quizList = quizBll.getAllQuizzesByUser(user);
-        Map<Integer, Long> countResults = quizList.stream()
-                .map(Quiz::getScore)
-                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+        Map<Integer, Long> countResults = quizList.stream().map(Quiz::getScore).collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
         //create dataset for pie chart
         return new JSONObject(countResults);
     }
@@ -188,9 +180,7 @@ public class Server {
     private JSONObject getTimeDataSet(User user) {
         QuizBll quizBll = new QuizBll();
         List<Quiz> quizList = quizBll.getAllQuizzesByUser(user);
-        Map<String, Long> countQuizPerDay = quizList.stream()
-                .map(q -> q.getDate().toLocalDate().atTime(LocalTime.MIN).toString())
-                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+        Map<String, Long> countQuizPerDay = quizList.stream().map(q -> q.getDate().toLocalDate().atTime(LocalTime.MIN).toString()).collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
 
         return new JSONObject(countQuizPerDay);
     }
@@ -205,10 +195,8 @@ public class Server {
         int i = 0;
         Map<String, Float> barData = new HashMap<>();
         for (var entry : averageMap.entrySet()) {
-            if (entry.getKey().equals(user.getUsername()))
-                barData.put(entry.getKey(), entry.getValue());
-            else
-                barData.put("User" + (++i), entry.getValue());
+            if (entry.getKey().equals(user.getUsername())) barData.put(entry.getKey(), entry.getValue());
+            else barData.put("User" + (++i), entry.getValue());
         }
         return new JSONObject(barData);
     }

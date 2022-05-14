@@ -2,7 +2,7 @@ package model.geometryutils;
 
 import java.awt.*;
 
-public class PointDrawable extends GeometricElementDrawable implements java.io.Serializable, ShapeDrawable{
+public class PointDrawable extends GeometricElementDrawable implements java.io.Serializable, ShapeDrawable {
     private Point point;
 
 
@@ -30,8 +30,7 @@ public class PointDrawable extends GeometricElementDrawable implements java.io.S
         int x = Math.round(point.getX());
         int y = Math.round(point.getY());
         graphics2D.fillRect(x, y, 6, 6);
-        if (point.getIdentifier() != null)
-            graphics2D.drawString(point.getIdentifier(), x + 2, y + 3);
+        if (point.getIdentifier() != null) graphics2D.drawString(point.getIdentifier(), x + 2, y + 3);
 
 
     }

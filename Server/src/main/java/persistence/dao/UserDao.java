@@ -14,15 +14,15 @@ public class UserDao extends AbstractDao<User> {
 
     }
 
-    public User findByUsernameAndPassword(String username, String password){
+    public User findByUsernameAndPassword(String username, String password) {
         DataBaseSession dataBaseSession = DataBaseSession.getInstance();
         Session session = dataBaseSession.getSession().openSession();
         Transaction transaction = session.beginTransaction();
         try {
-            Query query=session.createQuery("from User where username=:username and password=:password");
+            Query query = session.createQuery("from User where username=:username and password=:password");
             query.setParameter("username", username);
             query.setParameter("password", password);
-            User user=(User)query.uniqueResult();
+            User user = (User) query.uniqueResult();
             transaction.commit();
             return user;
         } catch (HibernateException exc) {
@@ -41,9 +41,9 @@ public class UserDao extends AbstractDao<User> {
         Session session = dataBaseSession.getSession().openSession();
         Transaction transaction = session.beginTransaction();
         try {
-            Query query=session.createQuery("from User where username=:username");
+            Query query = session.createQuery("from User where username=:username");
             query.setParameter("username", username);
-            User user=(User)query.uniqueResult();
+            User user = (User) query.uniqueResult();
             transaction.commit();
             return user;
         } catch (HibernateException exc) {

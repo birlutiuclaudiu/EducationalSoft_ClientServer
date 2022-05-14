@@ -43,8 +43,8 @@ public class LoggedUserView extends JFrame implements Observer {
     private JProgressBar progressBar1;
     private JProgressBar progressBar2;
 
-    private ButtonGroup buttonGroupRadio;
-    private QuizModel quizModel;
+    private final ButtonGroup buttonGroupRadio;
+    private final QuizModel quizModel;
 
     private Map<String, String> dictionary;
 
@@ -135,8 +135,7 @@ public class LoggedUserView extends JFrame implements Observer {
                 break;
             case "next_question":
                 startButton.setText(dictionary.get("startButton2"));
-                if (quizModel.getIndex() == 10)
-                    startButton.setText(dictionary.get("startButton3"));
+                if (quizModel.getIndex() == 10) startButton.setText(dictionary.get("startButton3"));
                 setQuestionAndAnswers();
                 //change text from start button in next
                 quizTitle.setForeground(quizModel.getAnswerColor());
@@ -163,7 +162,7 @@ public class LoggedUserView extends JFrame implements Observer {
         }
     }
 
-    private void initQuizPage(){
+    private void initQuizPage() {
         questionTag.setText(dictionary.get("questionTag"));
         aRadioButton.setText("A");
         bRadioButton.setText("B");
@@ -172,13 +171,11 @@ public class LoggedUserView extends JFrame implements Observer {
         startButton.setText(dictionary.get("startButton1"));
         setHelpfulImage("icons/bgloginImage.jpg");
     }
+
     private void setStatisticsCharts() {
         //create pie chart
         radialChartPanel.removeAll();
-        JFreeChart chart = ChartFactory.createPieChart(dictionary.get("chartPieTitle"), quizModel.getDataSetPieUserEvolution(),
-                true,
-                true,
-                true);
+        JFreeChart chart = ChartFactory.createPieChart(dictionary.get("chartPieTitle"), quizModel.getDataSetPieUserEvolution(), true, true, true);
         ChartPanel myChart = new ChartPanel(chart);
         myChart.setMouseWheelEnabled(true);
         radialChartPanel.setLayout(new java.awt.BorderLayout());
@@ -186,13 +183,7 @@ public class LoggedUserView extends JFrame implements Observer {
         radialChartPanel.validate();
 
         barChartResultsPanel.removeAll();
-        JFreeChart barChart = ChartFactory.createBarChart(
-                dictionary.get("barChartTitle"),
-                "",
-                dictionary.get("barChartLabel"),
-                quizModel.getDataSetBarChart(),
-                PlotOrientation.VERTICAL,
-                false, true, true);
+        JFreeChart barChart = ChartFactory.createBarChart(dictionary.get("barChartTitle"), "", dictionary.get("barChartLabel"), quizModel.getDataSetBarChart(), PlotOrientation.VERTICAL, false, true, true);
         ChartPanel chartPanel = new ChartPanel(barChart);
         barChartResultsPanel.setLayout(new java.awt.BorderLayout());
         barChartResultsPanel.add(chartPanel, BorderLayout.CENTER);
@@ -200,8 +191,7 @@ public class LoggedUserView extends JFrame implements Observer {
 
         //for time chart
         timeChartPanel.removeAll();
-        JFreeChart timeChart = ChartFactory.createTimeSeriesChart(
-                dictionary.get("timeChartTitle"), // Chart
+        JFreeChart timeChart = ChartFactory.createTimeSeriesChart(dictionary.get("timeChartTitle"), // Chart
                 "Date", // X-Axis Label
                 "Quizzes", // Y-Axis Label
                 quizModel.getTimeSeriesCollection(), true, true, true);
@@ -264,8 +254,7 @@ public class LoggedUserView extends JFrame implements Observer {
     private void changeLanguage() {
         dictionary = quizModel.getLanguage().getLanguageLabels();
         resetButton.setText(dictionary.get("reset"));
-        if (!(quizModel.getState().equals("open_quiz")||quizModel.getState().equals("next_question")
-                      ||quizModel.getState().equals("final_question"))) {
+        if (!(quizModel.getState().equals("open_quiz") || quizModel.getState().equals("next_question") || quizModel.getState().equals("final_question"))) {
             quizTitle.setText(dictionary.get("quizTitle1"));
             questionTag.setText(dictionary.get("questionTag"));
             startButton.setText(dictionary.get("startButton1"));

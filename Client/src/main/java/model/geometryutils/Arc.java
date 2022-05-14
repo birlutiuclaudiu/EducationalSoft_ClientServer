@@ -7,13 +7,8 @@ public class Arc extends GeometricFigure {
     private Point center;
     private Float radius;
 
-    public Arc(){
+    public Arc() {
 
-    }
-
-    @Override
-    public Float computeAria() {
-        return (float) (this.getAngularExtent() * Math.PI * this.radius * this.radius / 360);
     }
 
     public Arc(Float startAngle, Float endAngle, Point p, Float radius) {
@@ -21,6 +16,11 @@ public class Arc extends GeometricFigure {
         this.endAngle = endAngle;
         this.center = p;
         this.radius = radius;
+    }
+
+    @Override
+    public Float computeAria() {
+        return (float) (this.getAngularExtent() * Math.PI * this.radius * this.radius / 360);
     }
 
     public Float getSectorAria() {
@@ -41,39 +41,39 @@ public class Arc extends GeometricFigure {
         return this.startAngle;
     }
 
+    public void setStartAngle(Float startAngle) {
+        this.startAngle = startAngle;
+    }
+
     public Float getRadius() {
         return this.radius;
     }
 
+    public void setRadius(Float radius) {
+        this.radius = radius;
+    }
+
     public Float getCenterX() {
-        return (float) center.getX();
+        return center.getX();
     }
 
     public Float getCenterY() {
-        return (float) center.getY();
+        return center.getY();
     }
 
     public Float getEndAngle() {
         return endAngle;
     }
 
-    public Point getCenter() {
-        return center;
-    }
-
-    public void setStartAngle(Float startAngle) {
-        this.startAngle = startAngle;
-    }
-
     public void setEndAngle(Float endAngle) {
         this.endAngle = endAngle;
     }
 
-    public void setCenter(Point center) {
-        this.center = center;
+    public Point getCenter() {
+        return center;
     }
 
-    public void setRadius(Float radius) {
-        this.radius = radius;
+    public void setCenter(Point center) {
+        this.center = center;
     }
 }

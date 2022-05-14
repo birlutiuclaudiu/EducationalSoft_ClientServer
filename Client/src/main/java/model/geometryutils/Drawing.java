@@ -2,7 +2,6 @@ package model.geometryutils;
 
 import lombok.Getter;
 import lombok.Setter;
-import model.geometryutils.GeometricElementDrawable;
 
 import java.awt.*;
 import java.io.Serializable;

@@ -1,4 +1,5 @@
 package controller;
+
 import model.QuizModel;
 import org.json.JSONObject;
 import view.LoggedUserView;
@@ -7,12 +8,11 @@ import view.LoginView;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 
 public class LoginController {
 
-    private QuizModel quizModel;
-    private LoginView loginView;
+    private final QuizModel quizModel;
+    private final LoginView loginView;
     private LoggedUserView loggedUserView;
     private LoggedUserController loggedUserController;
 
@@ -28,7 +28,7 @@ public class LoginController {
         public void actionPerformed(ActionEvent e) {
             String username = loginView.getUserName();
             String password = loginView.getPassword();
-            JSONObject toLogUser=null;
+            JSONObject toLogUser = null;
 
             try {
                 toLogUser = EduClient.getInstance().getRequestLogin(username, password, "LOGIN");
@@ -42,7 +42,7 @@ public class LoginController {
                 loggedUserView.setVisible(true);
 
             } catch (Exception r) {
-                if(toLogUser==null)
+                if (toLogUser == null)
                     JOptionPane.showMessageDialog(null, r.getMessage());
                 else
                     JOptionPane.showMessageDialog(null, toLogUser.get("MESSAGE"));
@@ -59,7 +59,7 @@ public class LoginController {
             JSONObject toLogUser = null;
             try {
                 toLogUser = EduClient.getInstance().getRequestLogin(username, password, "REGISTER");
-                System.out.println("Register"+toLogUser);
+                System.out.println("Register" + toLogUser);
                 toLogUser.get("username");
                 quizModel.setUser(toLogUser);
                 quizModel.notifyObserver("register");
@@ -68,7 +68,7 @@ public class LoginController {
                 loggedUserController = new LoggedUserController(quizModel, loggedUserView);
                 loggedUserView.setVisible(true);
             } catch (Exception r) {
-                if(toLogUser==null)
+                if (toLogUser == null)
                     JOptionPane.showMessageDialog(null, r.getMessage());
                 else
                     JOptionPane.showMessageDialog(null, toLogUser.get("MESSAGE"));

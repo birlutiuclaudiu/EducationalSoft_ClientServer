@@ -6,7 +6,7 @@ import persistence.entities.Question;
 
 public final class QuestionMapper {
 
-    public static QuestionDTO toDTO(Question question){
+    public static QuestionDTO toDTO(Question question) {
         return QuestionDTO.builder()
                 .id(question.getId())
                 .romanianBody(question.getRomanianBody())

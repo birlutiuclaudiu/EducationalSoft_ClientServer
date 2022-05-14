@@ -36,16 +36,14 @@ public class DataBaseSession {
         Map<String, String> settings = new HashMap<String, String>();
         settings.put("connection.driver_class", "org.postgresql.Driver");
         settings.put("dialect", "org.hibernate.dialect.PostgreSQL10Dialect");
-        settings.put("hibernate.connection.url",
-                "jdbc:postgresql://localhost:5432/educationalDB");
+        settings.put("hibernate.connection.url", "jdbc:postgresql://localhost:5432/educationalDB");
         settings.put("hibernate.connection.username", "postgres");
         settings.put("hibernate.connection.password", "postgres");
         settings.put("hibernate.show_sql", "true");
         settings.put("hibernate.format_sql", "true");
         settings.put("hibernate.hbm2ddl.auto", "update");
 
-        ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
-                .applySettings(settings).build();
+        ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(settings).build();
 
         MetadataSources metadataSources = new MetadataSources(serviceRegistry);
         metadataSources.addAnnotatedClass(User.class);
@@ -58,10 +56,7 @@ public class DataBaseSession {
         this.session = metadata.getSessionFactoryBuilder().build();
         Session session1 = session.openSession();
         session1.close();
-        Flyway flyway = Flyway.configure()
-                .dataSource("jdbc:postgresql://localhost:5432/educationalDB", "postgres", "postgres")
-                .baselineOnMigrate(true)
-                .load();
+        Flyway flyway = Flyway.configure().dataSource("jdbc:postgresql://localhost:5432/educationalDB", "postgres", "postgres").baselineOnMigrate(true).load();
 
         flyway.migrate();
 
@@ -70,8 +65,7 @@ public class DataBaseSession {
     // Static method
     // Static method to create instance of Singleton class
     public static DataBaseSession getInstance() throws HibernateException {
-        if (single_instance == null)
-            single_instance = new DataBaseSession();
+        if (single_instance == null) single_instance = new DataBaseSession();
         return single_instance;
     }
 

@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class Circle extends GeometricFigure implements java.io.Serializable{
+public class Circle extends GeometricFigure implements java.io.Serializable {
 
     private Point center;
     private Float radius;
@@ -81,13 +81,11 @@ public class Circle extends GeometricFigure implements java.io.Serializable{
         double abScalingFactor1 = -pBy2 + tmpSqrt;
         double abScalingFactor2 = -pBy2 - tmpSqrt;
 
-        Point p1 = new Point((float) (pointA.getX() - baX * abScalingFactor1), (float) (pointA.getY()
-                - baY * abScalingFactor1));
+        Point p1 = new Point((float) (pointA.getX() - baX * abScalingFactor1), (float) (pointA.getY() - baY * abScalingFactor1));
         if (disc == 0) {
             return Collections.singletonList(p1);
         }
-        Point p2 = new Point((float) (pointA.getX() - baX * abScalingFactor2), (float) (pointA.getY()
-                - baY * abScalingFactor2));
+        Point p2 = new Point((float) (pointA.getX() - baX * abScalingFactor2), (float) (pointA.getY() - baY * abScalingFactor2));
         return Arrays.asList(p1, p2);
     }
 
@@ -105,12 +103,12 @@ public class Circle extends GeometricFigure implements java.io.Serializable{
         return center;
     }
 
-    public Float getRadius() {
-        return radius;
-    }
-
     public void setCenter(Point center) {
         this.center = center;
+    }
+
+    public Float getRadius() {
+        return radius;
     }
 
     public void setRadius(Float radius) {

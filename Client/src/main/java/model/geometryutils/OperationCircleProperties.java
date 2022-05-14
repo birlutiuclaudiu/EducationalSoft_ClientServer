@@ -1,8 +1,5 @@
 package model.geometryutils;
 
-import model.geometryutils.GeometricElement;
-import model.geometryutils.Triangle;
-
 import java.util.List;
 
 public abstract class OperationCircleProperties {

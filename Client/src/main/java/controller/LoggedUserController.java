@@ -1,4 +1,5 @@
 package controller;
+
 import model.QuizModel;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.time.Day;
@@ -6,6 +7,7 @@ import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
 import org.json.JSONObject;
 import view.LoggedUserView;
+
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -15,7 +17,6 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.*;
-
 
 
 public class LoggedUserController {
@@ -119,20 +120,20 @@ public class LoggedUserController {
             JSONObject timeData = null;
             JSONObject barData = null;
             try {
-                pieData = EduClient.getInstance().getRequestCharts("PIE", (int)model.getUser().get("id"));
-                timeData = EduClient.getInstance().getRequestCharts("TIME", (int)model.getUser().get("id"));
-                barData = EduClient.getInstance().getRequestCharts("BAR", (int)model.getUser().get("id"));
+                pieData = EduClient.getInstance().getRequestCharts("PIE", (int) model.getUser().get("id"));
+                timeData = EduClient.getInstance().getRequestCharts("TIME", (int) model.getUser().get("id"));
+                barData = EduClient.getInstance().getRequestCharts("BAR", (int) model.getUser().get("id"));
                 //populate data for
                 model.setDataSetPieUserEvolution(new DefaultPieDataset());
                 for (var entry : pieData.toMap().entrySet()) {
-                    model.addDataSetPieUserEvolution(entry.getKey(), (Integer)entry.getValue());
+                    model.addDataSetPieUserEvolution(entry.getKey(), (Integer) entry.getValue());
                 }
                 //populate date for times
                 model.setTimeSeriesCollection(new TimeSeriesCollection());
 
                 TimeSeries series = new TimeSeries("Date");
                 Map<LocalDateTime, Long> countQuizPerDay = new HashMap<>();
-                for(var entry : timeData.toMap().entrySet()){
+                for (var entry : timeData.toMap().entrySet()) {
                     countQuizPerDay.put(LocalDateTime.parse(entry.getKey()),
                             Long.valueOf(entry.getValue().toString()));
                 }

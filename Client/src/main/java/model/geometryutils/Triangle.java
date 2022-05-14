@@ -50,7 +50,7 @@ public class Triangle implements java.io.Serializable {
     public float getAngle(int i) {
         float angle = 0.0f;
         //determine the vectors
-        Point anglePoint = points.get(i%3);
+        Point anglePoint = points.get(i % 3);
         Point firstPoint = points.get((i + 1) % 3);
         Point secondPoint = points.get((i + 2) % 3);
         Point vec1 = new Point(firstPoint.getX() - anglePoint.getX(), firstPoint.getY() - anglePoint.getY());
@@ -77,8 +77,7 @@ public class Triangle implements java.io.Serializable {
         Point b = this.points.get(1);
         Point c = this.points.get(2);
         double v = Math.tan(angleA) + Math.tan(angleB) + Math.tan(angleC);
-        float px = (float) ((a.getX() * Math.tan(angleA) + b.getX() * Math.tan(angleB) + c.getX() * Math.tan(angleC)) /
-                v);
+        float px = (float) ((a.getX() * Math.tan(angleA) + b.getX() * Math.tan(angleB) + c.getX() * Math.tan(angleC)) / v);
         float py = (float) ((a.getY() * Math.tan(angleA) + b.getY() * Math.tan(angleB) + c.getY() * Math.tan(angleC)) / v);
         point = new Point(px, py);
         point.setIdentifier("H");

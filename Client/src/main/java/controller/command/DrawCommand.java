@@ -130,15 +130,14 @@ public class DrawCommand implements ICommand {
         int nbVertices = 3;
         try {
             nbVertices = Integer.parseInt(this.educationalSoftGUI.getNbOfVertices());
-            if (nbVertices < 3)
-                nbVertices = 3; //default it remains 3; to define a triangle -> the minimum polygon
+            if (nbVertices < 3) nbVertices = 3; //default it remains 3; to define a triangle -> the minimum polygon
         } catch (NumberFormatException ignored) {
 
         }
         float angle = (float) (2 * Math.PI / nbVertices);
         java.util.List<model.geometryutils.Point> pointList = new ArrayList<>();
         //adaugare primul punct
-        pointList.add(new model.geometryutils.Point(center.getX() + (int) Math.round(radius), center.getY()));
+        pointList.add(new model.geometryutils.Point(center.getX() + Math.round(radius), center.getY()));
         for (int i = 1; i < nbVertices; i++) {
             float px = (float) (Math.cos((angle) * i) * radius + center.getX());
             float py = (float) (Math.sin((angle) * i) * radius + center.getY());
@@ -195,12 +194,9 @@ public class DrawCommand implements ICommand {
         model.geometryutils.Point ma = circle.getCenter().getProjection(new Line(triangle.getPoints().get(1), triangle.getPoints().get(2)));
         model.geometryutils.Point mb = circle.getCenter().getProjection(new Line(triangle.getPoints().get(0), triangle.getPoints().get(2)));
         model.geometryutils.Point mc = circle.getCenter().getProjection(new Line(triangle.getPoints().get(0), triangle.getPoints().get(1)));
-        drawing.addGeometricElement(new LineDrawable(new Line(circle.getCenter(), ma),
-                Color.BLUE, "discontinue", 2.0f));
-        drawing.addGeometricElement(new LineDrawable(new Line(circle.getCenter(), mb),
-                Color.BLUE, "discontinue", 2.0f));
-        drawing.addGeometricElement(new LineDrawable(new Line(circle.getCenter(), mc),
-                Color.BLUE, "discontinue", 2.0f));
+        drawing.addGeometricElement(new LineDrawable(new Line(circle.getCenter(), ma), Color.BLUE, "discontinue", 2.0f));
+        drawing.addGeometricElement(new LineDrawable(new Line(circle.getCenter(), mb), Color.BLUE, "discontinue", 2.0f));
+        drawing.addGeometricElement(new LineDrawable(new Line(circle.getCenter(), mc), Color.BLUE, "discontinue", 2.0f));
     }
 
     private void drawInscribedCircleOfTriangle(Triangle triangle) {

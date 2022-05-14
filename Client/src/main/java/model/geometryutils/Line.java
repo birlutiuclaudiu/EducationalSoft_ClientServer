@@ -28,12 +28,12 @@ public class Line extends GeometricElement {
         return p1;
     }
 
-    public Point getP2() {
-        return p2;
-    }
-
     public void setP1(Point p1) {
         this.p1 = p1;
+    }
+
+    public Point getP2() {
+        return p2;
     }
 
     public void setP2(Point p2) {
@@ -54,7 +54,7 @@ public class Line extends GeometricElement {
         float y4 = line.getP2().getY();
         float determinant = (x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4);
         if (determinant == 0) {
-            return new Point(0,0);
+            return new Point(0, 0);
         }
         float px = ((x3 - x4) * (x1 * y2 - y1 * x2) - (x1 - x2) * (x3 * y4 - y3 * x4)) / determinant;
         float py = ((y3 - y4) * (x1 * y2 - y1 * x2) - (y1 - y2) * (x3 * y4 - y3 * x4)) / determinant;
@@ -120,9 +120,6 @@ public class Line extends GeometricElement {
 
     @Override
     public String toString() {
-        return "Line{" +
-                "p1=" + p1 +
-                ", p2=" + p2 +
-                '}';
+        return "Line{" + "p1=" + p1 + ", p2=" + p2 + '}';
     }
 }

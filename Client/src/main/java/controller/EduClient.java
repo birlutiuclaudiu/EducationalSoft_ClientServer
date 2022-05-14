@@ -28,6 +28,10 @@ public class EduClient {
         }
     }
 
+    /**
+     * There is one client which have to connect to server; So we obtain a client which connects to server only one time
+     * The solution is to create the object by singleton pattern
+     */
     public static EduClient getInstance() throws HibernateException {
         if (single_instance == null)
             single_instance = new EduClient();
@@ -41,6 +45,7 @@ public class EduClient {
         this.bufferedReader = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
     }
 
+    //the following methods create a json object with the request specification; the json object is sent to the server
     public JSONObject getRequestById(String objectClass, int id) throws IOException {
         JSONObject configuration = new JSONObject();
         configuration.put("TYPE", "GET");
@@ -51,7 +56,7 @@ public class EduClient {
         return new JSONObject(bufferedReader.readLine());
     }
 
-    public boolean postObject(JSONObject object, String entity) throws IOException {
+    public void postObject(JSONObject object, String entity) throws IOException {
         JSONObject configuration = new JSONObject();
         configuration.put("TYPE", "POST");
         configuration.put("ENTITY", entity);
@@ -59,7 +64,7 @@ public class EduClient {
 
         printStream.println(configuration);
         printStream.flush();
-        return new JSONObject(bufferedReader.readLine()).get("BAD_REQUEST") == "true";
+        new JSONObject(bufferedReader.readLine()).get("BAD_REQUEST");
     }
 
     public JSONObject getRequestLogin(String username, String password, String subtype) throws IOException {
@@ -83,13 +88,13 @@ public class EduClient {
         return new JSONObject(bufferedReader.readLine());
     }
 
-    public void close(){
+    public void close() {
         try {
-            if(this.socket!=null) {
+            if (this.socket != null) {
                 this.socket.close();
                 single_instance = null;
             }
-            this.socket=null;
+            this.socket = null;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

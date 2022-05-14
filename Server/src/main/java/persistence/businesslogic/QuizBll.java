@@ -9,7 +9,7 @@ import java.util.List;
 
 public class QuizBll {
 
-    private QuizDao quizDao;
+    private final QuizDao quizDao;
 
     public QuizBll() {
         this.quizDao = new QuizDao();
@@ -19,11 +19,11 @@ public class QuizBll {
         return quizDao.save(quiz);
     }
 
-    public List<Quiz> getAllQuizzesByUser(User user){
+    public List<Quiz> getAllQuizzesByUser(User user) {
         return quizDao.getAllQuizzesByUser(user);
     }
 
-    public List<Quiz> getAllQuizzes(){
+    public List<Quiz> getAllQuizzes() {
         return quizDao.getAll();
     }
 

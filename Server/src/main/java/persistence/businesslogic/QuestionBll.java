@@ -6,13 +6,13 @@ import persistence.entities.Question;
 
 public class QuestionBll {
 
-    private QuestionDao questionDao;
+    private final QuestionDao questionDao;
 
-    public QuestionBll(){
+    public QuestionBll() {
         this.questionDao = new QuestionDao();
     }
 
-    public Question findById(Integer id){
+    public Question findById(Integer id) {
         return questionDao.findById(id);
     }
 

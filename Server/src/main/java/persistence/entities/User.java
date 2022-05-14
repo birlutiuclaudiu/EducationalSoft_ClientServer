@@ -1,12 +1,10 @@
 package persistence.entities;
 
-
 import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
-
 
 @Entity
 @Table(name = "edu_users")
@@ -31,9 +29,7 @@ public class User {
     private List<Quiz> quizzes;
 
     public float getAverageScore() {
-        Integer sum = quizzes.stream()
-                .map(Quiz::getScore)
-                .reduce(0, Integer::sum);
+        Integer sum = quizzes.stream().map(Quiz::getScore).reduce(0, Integer::sum);
         return ((float) sum) / quizzes.size();
     }
 
