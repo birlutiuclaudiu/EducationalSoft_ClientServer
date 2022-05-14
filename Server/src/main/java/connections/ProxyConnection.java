@@ -1,7 +1,9 @@
+package connections;
 
+import connections.ClientConnected;
+import connections.ConnectionClientServer;
 
-
-public class ProxyConnection implements ConnectionClientServer{
+public class ProxyConnection implements ConnectionClientServer {
 
     private String ipAddress;
     private ClientConnected clientConnected;

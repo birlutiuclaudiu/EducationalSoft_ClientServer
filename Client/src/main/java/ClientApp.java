@@ -5,7 +5,7 @@ import view.EducationalSoftGUI;
 import java.io.IOException;
 
 
-public class MainClass {
+public class ClientApp {
     public static void main(String[] args) throws IOException {
         //Create connection
         EduClient.getInstance();

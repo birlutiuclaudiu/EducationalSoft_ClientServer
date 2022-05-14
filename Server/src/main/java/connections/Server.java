@@ -1,6 +1,9 @@
+package connections;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
+import connections.ProxyConnection;
 import dto.QuestionDTO;
 import dto.UserDTO;
 import dto.mapper.QuestionMapper;

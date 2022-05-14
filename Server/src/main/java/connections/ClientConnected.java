@@ -1,5 +1,6 @@
+package connections;
 
-
+import connections.ConnectionClientServer;
 
 public class ClientConnected implements ConnectionClientServer {
 

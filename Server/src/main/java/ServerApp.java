@@ -1,7 +1,8 @@
+import connections.Server;
 import persistence.DataBaseSession;
 import java.io.IOException;
 
-public class MainClass {
+public class ServerApp {
     public static void main(String[] args) {
         DataBaseSession dataBaseSession = DataBaseSession.getInstance();
 
