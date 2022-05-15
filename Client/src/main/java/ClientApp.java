@@ -1,7 +1,10 @@
 import controller.DrawingController;
 import connection.EduClient;
 import model.EducationalModel;
+import persistence.entities.Quiz;
 import view.EducationalSoftGUI;
+
+import java.util.WeakHashMap;
 
 public class ClientApp {
     public static void main(String[] args)  {
@@ -9,7 +12,7 @@ public class ClientApp {
         EduClient.getInstance();
         EducationalModel model = new EducationalModel();
         EducationalSoftGUI view = new EducationalSoftGUI("Educational Soft", model);
-        DrawingController drawingController = new DrawingController(view, model);
+        DrawingController DrawingController = new DrawingController(view, model);
         view.setVisible(true);
 
     }
