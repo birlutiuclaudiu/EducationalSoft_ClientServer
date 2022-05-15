@@ -1,7 +1,6 @@
 import controller.DrawingController;
 import connection.EduClient;
 import model.EducationalModel;
-import persistence.entities.Quiz;
 import view.EducationalSoftGUI;
 
 import java.util.WeakHashMap;
